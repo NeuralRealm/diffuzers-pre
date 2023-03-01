@@ -1,4 +1,5 @@
 import base64
+from PIL import Image
 import gc
 import io
 import os
@@ -155,7 +156,7 @@ def display_and_download_images(output_images, metadata, download_col=None):
             gallery_images = []
             for i, image in enumerate(output_images):
                 try:
-                    image = cv2.imread(image, cv2.IMREAD_UNCHANGED)
+                    image = Image.fromarray(image, 'RGB')
                 except:
                     image = image
                 image.save(os.path.join(tmpdir, f"{i + 1}.png"), pnginfo=metadata)
