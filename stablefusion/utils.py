@@ -156,9 +156,9 @@ def display_and_download_images(output_images, metadata, download_col=None):
             gallery_images = []
             for i, image in enumerate(output_images):
                 try:
-                    image = Image.fromarray(image, 'RGB')
+                    i = Image.fromarray(image, 'RGB')
                 except:
-                    image = image
+                    i = image
                 image.save(os.path.join(tmpdir, f"{i + 1}.png"), pnginfo=metadata)
                 with open(os.path.join(tmpdir, f"{i + 1}.png"), "rb") as img:
                     encoded = base64.b64encode(img.read()).decode()
