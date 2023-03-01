@@ -155,10 +155,9 @@ def display_and_download_images(output_images, metadata, download_col=None):
         with tempfile.TemporaryDirectory() as tmpdir:
             gallery_images = []
             for i, image in enumerate(output_images):
-                try:
-                    i = Image.fromarray(image, 'RGB')
-                except:
-                    i = image
+                
+                image = Image.fromarray(image, 'RGB')
+                
                 image.save(os.path.join(tmpdir, f"{i + 1}.png"), pnginfo=metadata)
                 with open(os.path.join(tmpdir, f"{i + 1}.png"), "rb") as img:
                     encoded = base64.b64encode(img.read()).decode()
