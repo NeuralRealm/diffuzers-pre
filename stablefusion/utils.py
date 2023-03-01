@@ -154,11 +154,6 @@ def display_and_download_images(output_images, metadata, download_col=None):
         with tempfile.TemporaryDirectory() as tmpdir:
             gallery_images = []
             for i, image in enumerate(output_images):
-                try:
-                   image = cv2.imread(image, cv2.IMREAD_UNCHANGED)
-                   image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                except:
-                    pass
                 image.save(os.path.join(tmpdir, f"{i + 1}.png"), pnginfo=metadata)
                 with open(os.path.join(tmpdir, f"{i + 1}.png"), "rb") as img:
                     encoded = base64.b64encode(img.read()).decode()
