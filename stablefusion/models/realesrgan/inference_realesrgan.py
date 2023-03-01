@@ -9,7 +9,7 @@ from realesrgan import RealESRGANer
 from realesrgan.archs.srvgg_arch import SRVGGNetCompact
 import numpy as np
 from stablefusion import utils
-
+import streamlit as st
 
 """Inference demo for Real-ESRGAN.
     parser = argparse.ArgumentParser()
@@ -137,7 +137,12 @@ def main(model_name, denoise_strength, tile, tile_pad, pre_pad, fp32, gpu_id, fa
             _, _, output = face_enhancer.enhance(img, has_aligned=False, only_center_face=False, paste_back=True)
         else:
             output, _ = upsampler.enhance(img, outscale=outscale)
-            utils.display_and_download_images(output, metadata="None", download_col=None)
+        utils.display_and_download_images(output, metadata="None", download_col=None)
+        
+        try:
+            st.image(output)
+        except:
+            st.text(output)
             
     except RuntimeError as error:
         print('Error', error)
