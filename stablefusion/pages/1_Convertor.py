@@ -5,9 +5,9 @@ from stablefusion.scripts.gfp_gan import GFPGAN
 from stablefusion.scripts.image_info import ImageInfo
 from stablefusion.scripts.interrogator import ImageInterrogator
 from stablefusion.scripts.upscaler import Upscaler
-from stablefusion.scripts.model_adding import ModelAdding
-from stablefusion.scripts.model_removing import ModelRemoving
-from stablefusion.scripts.ckpt_to_diffusion import convert_ckpt_to_diffusion
+from stablefusion.model_adding import ModelAdding
+from stablefusion.model_removing import ModelRemoving
+from stablefusion.ckpt_to_diffusion import convert_ckpt_to_diffusion
 
 
 def app():

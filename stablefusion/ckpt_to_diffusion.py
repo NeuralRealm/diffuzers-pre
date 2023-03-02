@@ -1036,7 +1036,7 @@ def append_created_model(model_name):
 def convert_ckpt_to_diffusion(device, checkpoint_link, checkpoint_name, num_in_channels, scheduler_type, pipeline_type, extract_ema, dump_path, image_size, original_config_file, prediction_type, overwrite_file):
 
     try:
-        checkpoint_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),'models', 'cpkt_models', checkpoint_name)
+        checkpoint_path = "{}/models/cpkt_models/{}".format(current_path, checkpoint_name)
     except:
         checkpoint_path = "stablefusion/models/cpkt_models/{}".format(checkpoint_name)
 

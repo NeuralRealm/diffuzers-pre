@@ -5,8 +5,8 @@ from stablefusion.scripts.gfp_gan import GFPGAN
 from stablefusion.scripts.image_info import ImageInfo
 from stablefusion.scripts.interrogator import ImageInterrogator
 from stablefusion.scripts.upscaler import Upscaler
-from stablefusion.scripts.model_adding import ModelAdding
-from stablefusion.scripts.model_removing import ModelRemoving
+from stablefusion.model_adding import ModelAdding
+from stablefusion.model_removing import ModelRemoving
 
 
 def app():
