@@ -146,7 +146,7 @@ def main(model_name, denoise_strength, tile, tile_pad, pre_pad, fp32, gpu_id, fa
         st.download_button(
             label="Download Upscaled Image",
             data=img,
-            file_name="{}-upscaled_image.png".format(input_image.name),
+            file_name="upscaled_image.png",
             mime="image/png"
         )
         
