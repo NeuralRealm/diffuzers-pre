@@ -141,7 +141,6 @@ def main(model_name, denoise_strength, tile, tile_pad, pre_pad, fp32, gpu_id, fa
         
         img = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
         st.image(img)
-        utils.display_and_download_images(img, metadata="None", download_col=None)
         
             
     except RuntimeError as error:
