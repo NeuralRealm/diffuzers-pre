@@ -69,6 +69,10 @@ def download_file(file_url):
     return tmp.name
 
 
+def base_path():
+
+    return os.path.dirname(__file__)
+
 def cache_folder():
     _cache_folder = os.path.join(os.path.expanduser("~"), ".stablefusion")
     os.makedirs(_cache_folder, exist_ok=True)
