@@ -3,9 +3,10 @@ import streamlit as st
 from stablefusion.scripts.img2img import Img2Img
 from stablefusion.scripts.text2img import Text2Image
 from stablefusion.Home import read_model_list
-
+from stablefusion import utils
 
 def app():
+    utils.create_base_page()
     if "text2img" in st.session_state and "img2img" not in st.session_state:
         img2img = Img2Img(
             model=None,

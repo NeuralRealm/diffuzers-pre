@@ -95,16 +95,16 @@ class Text2Image:
         # with st.form(key="text2img"):
         col1, col2 = st.columns(2)
         with col1:
-            prompt = st.text_area("Prompt", "Blue elephant")
+            prompt = st.text_area("Prompt", "Blue elephant", help="Prompt to guide image generation")
         with col2:
-            negative_prompt = st.text_area("Negative Prompt", "")
+            negative_prompt = st.text_area("Negative Prompt", "", help="The prompt not to guide image generation. Write things that you dont want to see in the image.")
         # sidebar options
-        scheduler = st.sidebar.selectbox("Scheduler", available_schedulers, index=0)
-        image_height = st.sidebar.slider("Image height", 128, 1024, 512, 128)
-        image_width = st.sidebar.slider("Image width", 128, 1024, 512, 128)
-        guidance_scale = st.sidebar.slider("Guidance scale", 1.0, 40.0, 7.5, 0.5)
-        num_images = st.sidebar.slider("Number of images per prompt", 1, 30, 1, 1)
-        steps = st.sidebar.slider("Steps", 1, 150, 50, 1)
+        scheduler = st.sidebar.selectbox("Scheduler", available_schedulers, index=0, help="Scheduler(Sampler) to use for generation")
+        image_height = st.sidebar.slider("Image height", 128, 1024, 512, 128, help="The height in pixels of the generated image.")
+        image_width = st.sidebar.slider("Image width", 128, 1024, 512, 128, help="The width in pixels of the generated image.")
+        guidance_scale = st.sidebar.slider("Guidance scale", 1.0, 40.0, 7.5, 0.5, help="Higher guidance scale encourages to generate images that are closely linked to the text `prompt`, usually at the expense of lower image quality.")
+        num_images = st.sidebar.slider("Number of images per prompt", 1, 30, 1, 1, help="Number of images you want to generate. More images requires more time and uses more GPU memory.")
+        steps = st.sidebar.slider("Steps", 1, 150, 50, 1, help="The number of denoising steps. More denoising steps usually lead to a higher quality image at the expense of slower inference.")
 
         seed_placeholder = st.sidebar.empty()
         seed = seed_placeholder.number_input("Seed", value=42, min_value=1, max_value=999999, step=1)

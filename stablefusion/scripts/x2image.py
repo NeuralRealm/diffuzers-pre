@@ -366,7 +366,7 @@ class X2Image:
         # add section advanced options
         st.sidebar.markdown("### Advanced options")
         scheduler = st.sidebar.selectbox(
-            "Scheduler", available_schedulers, index=0, help="Scheduler to use for generation"
+            "Scheduler", available_schedulers, index=0, help="Scheduler(Sampler) to use for generation"
         )
         guidance_scale = st.sidebar.slider(
             "Guidance scale",
