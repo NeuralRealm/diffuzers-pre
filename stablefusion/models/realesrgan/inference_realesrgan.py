@@ -143,13 +143,12 @@ def main(model_name, denoise_strength, tile, tile_pad, pre_pad, fp32, gpu_id, fa
         img = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
         st.image(img)
 
-        if st.button("Download Image"):
-            st.download_button(
-                label="Download Upscaled Image",
-                data=img,
-                file_name="{}-upscaled_image.png".format(input_image.name),
-                mime="image/png"
-            )
+        st.download_button(
+            label="Download Upscaled Image",
+            data=img,
+            file_name="{}-upscaled_image.png".format(input_image.name),
+            mime="image/png"
+        )
         
             
     except RuntimeError as error:
