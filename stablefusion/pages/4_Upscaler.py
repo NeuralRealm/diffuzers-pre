@@ -29,7 +29,8 @@ def app():
         alpha_upsampler = st.selectbox(label="The upsampler for the alpha channels", options=["realesrgan", "bicubic"])
 
     if st.button("Start Upscaling"):
-        inference_realesrgan.main(model_name=model_name, outscale=outscale, denoise_strength=denoise_strength, face_enhance=face_enhance, tile=0, tile_pad=10, pre_pad=0, fp32="fp32", gpu_id=None, input_image=input_image, model_path=None)
+        with st.spinner("Upscaling The Image..."):
+            inference_realesrgan.main(model_name=model_name, outscale=outscale, denoise_strength=denoise_strength, face_enhance=face_enhance, tile=0, tile_pad=10, pre_pad=0, fp32="fp32", gpu_id=None, input_image=input_image, model_path=None)
     
 
 
