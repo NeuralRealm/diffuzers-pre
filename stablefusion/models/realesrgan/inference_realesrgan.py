@@ -10,6 +10,7 @@ from realesrgan.archs.srvgg_arch import SRVGGNetCompact
 import numpy as np
 from stablefusion import utils
 import streamlit as st
+from PIL import Image
 
 """Inference demo for Real-ESRGAN.
     parser = argparse.ArgumentParser()
@@ -141,7 +142,14 @@ def main(model_name, denoise_strength, tile, tile_pad, pre_pad, fp32, gpu_id, fa
         
         img = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
         st.image(img)
-        utils.display_and_download_images(output_images=output, metadata="None")
+        try:
+            utils.display_and_download_images(output_images=Image.fromarray(output), metadata="None")
+        except:
+            utils.display_and_download_images(output_images=img, metadata="None")
+        try:
+            utils.display_and_download_images(output_images=np.array(img), metadata="None")
+        except:
+            utils.display_and_download_images(output_images=np.array(output), metadata="None")
         
             
     except RuntimeError as error:
