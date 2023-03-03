@@ -122,13 +122,13 @@ def append_created_model(model_name):
 
 def convert_safetensor_to_diffusers(original_config_file, image_size, prediction_type, pipeline_type, extract_ema, scheduler_type, num_in_channels, upcast_attention, from_safetensors, device, stable_unclip, stable_unclip_prior, clip_stats_path, controlnet, to_safetensors, checkpoint_name, checkpoint_link, overwrite):
 
-    checkpoint_path = "{}/models/cpkt_models/{}".format(current_path, checkpoint_name)
+    checkpoint_path = "{}/models/safetensors_models/{}".format(current_path, checkpoint_name)
 
     try:
         custom_diffusion_model = "{}/models/diffusion_models/{}".format(current_path, str(checkpoint_name).split(".")[0])
     except:
         custom_diffusion_model = "stablefusion/models/diffusion_models/{}".format(str(checkpoint_name).split(".")[0])
-    
+
     if overwrite is False:
         if not os.path.isfile(checkpoint_path):
 
