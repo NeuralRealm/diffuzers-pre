@@ -55,8 +55,8 @@ def app():
     elif task == "Safetensors to Diffusers":
 
         with st.form("Convert Your Safetensors to Diffusers"):
-            stabletensor_model_name = st.text_input(label="Name of the Safetensors Model", value="NameOfYourModel.ckpt")
-            stabletensor_model = st.text_input(label="Download Link of Safetensors Model path: ", value="https://huggingface.co/andite/anything-v4.0/resolve/main/anything-v4.0-pruned-fp16.ckpt", help="Path to the checkpoint to convert.")
+            stabletensor_model_name = st.text_input(label="Name of the Safetensors Model", value="realisticVisionV13_v13.safetensors")
+            stabletensor_model = st.text_input(label="Download Link of Safetensors Model path: ", value="https://civitai.com/api/download/models/6987?type=Pruned%20Model&format=SafeTensor", help="Path to the checkpoint to convert.")
             overwrite_mode = st.selectbox("Do You want to overwrite file: ", options=[False, True], help="If the Stabletensor files with that same name is present do you want to overwrite the file or want to use that file instead of downloading it again?")            
             st.subheader("Advance Settings")
             st.text("Don't Change anything if you are not sure about it.")
