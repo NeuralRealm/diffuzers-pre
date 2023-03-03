@@ -43,7 +43,7 @@ def convert_to_diffusers_model(checkpoint_path, original_config_file, image_size
         controlnet=controlnet,
     )
 
-    dump_path = "{}/models/diffusion_models/{}".format(checkpoint_name)
+    dump_path = "{}/models/diffusion_models/{}".format(current_path, checkpoint_name.split(".")[0])
 
     if controlnet:
         # only save the controlnet model
