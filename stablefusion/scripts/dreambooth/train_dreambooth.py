@@ -26,7 +26,7 @@ from PIL import Image
 from torchvision import transforms
 from tqdm.auto import tqdm
 from transformers import CLIPTextModel, CLIPTokenizer
-
+from stablefusion import utils
 
 torch.backends.cudnn.benchmark = True
 
@@ -181,7 +181,7 @@ def get_full_repo_name(model_id: str, organization: Optional[str] = None, token:
         return f"{organization}/{model_id}"
 
 
-def main(pretrained_model_name_or_path, revision, tokenizer_name, instance_data_dir, class_data_dir, class_prompt, with_prior_preservation, prior_loss_weight, num_class_images, output_dir, seed, resolution, center_crop, train_text_encoder, train_batch_size, sample_batch_size, max_train_steps, gradient_accumulation_steps, gradient_checkpointing, learning_rate, scale_lr, lr_scheduler, lr_warmup_steps, adam_beta1, adam_beta2, adam_weight_decay, adam_epsilon, logging_dir, mixed_precision, use_8bit_adam, instance_prompt, num_train_epochs, pretrained_vae_name_or_path, save_infer_steps, read_prompts_from_txts, pad_tokens, hflip, not_cache_latents, save_sample_prompt, n_save_sample, save_sample_negative_prompt, save_guidance_scale,log_interval, save_interval, save_min_steps):
+def main(pretrained_model_name_or_path, revision, tokenizer_name, with_prior_preservation, prior_loss_weight, num_class_images, output_dir, seed, resolution, center_crop, train_text_encoder, train_batch_size, sample_batch_size, max_train_steps, gradient_accumulation_steps, gradient_checkpointing, learning_rate, scale_lr, lr_scheduler, lr_warmup_steps, adam_beta1, adam_beta2, adam_weight_decay, adam_epsilon, logging_dir, mixed_precision, use_8bit_adam, num_train_epochs, pretrained_vae_name_or_path, save_infer_steps, read_prompts_from_txts, pad_tokens, hflip, not_cache_latents, log_interval, save_interval, save_min_steps):
 
     logging_dir = Path(output_dir, "0", logging_dir)
 
@@ -210,18 +210,9 @@ def main(pretrained_model_name_or_path, revision, tokenizer_name, instance_data_
     if seed is not None:
         set_seed(seed)
 
-    if concepts_list is None:
-        concepts_list = [
-            {
-                "instance_prompt": instance_prompt,
-                "class_prompt": class_prompt,
-                "instance_data_dir": instance_data_dir,
-                "class_data_dir": class_data_dir
-            }
-        ]
-    else:
-        with open(concepts_list, "r") as f:
-            concepts_list = json.load(f)
+    
+    with open("{}/trainner_assets/concepts_list.json".format(utils.base_path()), "r") as f:
+        concepts_list = json.load(f)
 
     if with_prior_preservation:
         pipeline = None
@@ -504,25 +495,6 @@ def main(pretrained_model_name_or_path, revision, tokenizer_name, instance_data_
             with open(os.path.join(save_dir, "json"), "w") as f:
                 json.dump(__dict__, f, indent=2)
 
-            if save_sample_prompt is not None:
-                pipeline = pipeline.to(accelerator.device)
-                g_cuda = torch.Generator(device=accelerator.device).manual_seed(seed)
-                pipeline.set_progress_bar_config(disable=True)
-                sample_dir = os.path.join(save_dir, "samples")
-                os.makedirs(sample_dir, exist_ok=True)
-                with torch.autocast("cuda"), torch.inference_mode():
-                    for i in tqdm(range(n_save_sample), desc="Generating samples"):
-                        images = pipeline(
-                            save_sample_prompt,
-                            negative_prompt=save_sample_negative_prompt,
-                            guidance_scale=save_guidance_scale,
-                            num_inference_steps=save_infer_steps,
-                            generator=g_cuda
-                        ).images
-                        images[0].save(os.path.join(sample_dir, f"{i}.png"))
-                del pipeline
-                if torch.cuda.is_available():
-                    torch.cuda.empty_cache()
             print(f"[*] Weights saved at {save_dir}")
 
     # Only show the progress bar once on each machine.
@@ -625,7 +597,3 @@ def main(pretrained_model_name_or_path, revision, tokenizer_name, instance_data_
     save_weights(global_step)
 
     accelerator.end_training()
-
-
-if __name__ == "__main__":
-    main(pretrained_model_name_or_path, revision, tokenizer_name, instance_data_dir, class_data_dir, class_prompt, with_prior_preservation, prior_loss_weight, num_class_images, output_dir, seed, resolution, center_crop, train_text_encoder, train_batch_size, sample_batch_size, max_train_steps, gradient_accumulation_steps, gradient_checkpointing, learning_rate, scale_lr, lr_scheduler, lr_warmup_steps, adam_beta1, adam_beta2, adam_weight_decay, adam_epsilon, logging_dir, mixed_precision, use_8bit_adam, instance_prompt, num_train_epochs, pretrained_vae_name_or_path, save_infer_steps, read_prompts_from_txts, pad_tokens, hflip, not_cache_latents, save_sample_prompt, n_save_sample, save_sample_negative_prompt, save_guidance_scale,log_interval, save_interval, save_min_steps)
