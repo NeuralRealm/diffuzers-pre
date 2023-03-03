@@ -145,10 +145,10 @@ def convert_safetensor_to_diffusers(original_config_file, image_size, prediction
 
         if not os.path.exists(custom_diffusion_model):
             
-            convert_to_diffusers_model(checkpoint_name=checkpoint_name, original_config_file=original_config_file, image_size=image_size, prediction_type=prediction_type, extract_ema=extract_ema, scheduler_type=scheduler_type, num_in_channels=num_in_channels, upcast_attention=upcast_attention, from_safetensors=from_safetensors, device=device, stable_unclip=stable_unclip, stable_unclip_prior=stable_unclip_prior, clip_stats_path=clip_stats_path, controlnet=controlnet, to_safetensors=to_safetensors)
+            convert_to_diffusers_model(checkpoint_name=checkpoint_name, original_config_file=original_config_file, image_size=image_size, prediction_type=prediction_type, extract_ema=extract_ema, scheduler_type=scheduler_type, num_in_channels=num_in_channels, upcast_attention=upcast_attention, from_safetensors=from_safetensors, device=device, stable_unclip=stable_unclip, stable_unclip_prior=stable_unclip_prior, clip_stats_path=clip_stats_path, controlnet=controlnet, to_safetensors=to_safetensors, checkpoint_path=checkpoint_path, pipeline_type=pipeline_type)
         
         else:
             st.warning("Model {} is already present".format(custom_diffusion_model))
 
     else:
-        convert_to_diffusers_model(checkpoint_name=checkpoint_name, original_config_file=original_config_file, image_size=image_size, prediction_type=prediction_type, extract_ema=extract_ema, scheduler_type=scheduler_type, num_in_channels=num_in_channels, upcast_attention=upcast_attention, from_safetensors=from_safetensors, device=device, stable_unclip=stable_unclip, stable_unclip_prior=stable_unclip_prior, clip_stats_path=clip_stats_path, controlnet=controlnet, to_safetensors=to_safetensors)
+        convert_to_diffusers_model(checkpoint_name=checkpoint_name, original_config_file=original_config_file, image_size=image_size, prediction_type=prediction_type, extract_ema=extract_ema, scheduler_type=scheduler_type, num_in_channels=num_in_channels, upcast_attention=upcast_attention, from_safetensors=from_safetensors, device=device, stable_unclip=stable_unclip, stable_unclip_prior=stable_unclip_prior, clip_stats_path=clip_stats_path, controlnet=controlnet, to_safetensors=to_safetensors, checkpoint_path=checkpoint_path, pipeline_type=pipeline_type)
