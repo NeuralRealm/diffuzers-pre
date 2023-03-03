@@ -81,8 +81,8 @@ def app():
             
             if submit:
                 with st.spinner("Converting..."):
-                    if config_file == None:
-                        config_file = ""
+                    if config_file == "None":
+                        config_file = None
                     convert_safetensor_to_diffusers(original_config_file=config_file, image_size=image_size, prediction_type=prediction_type, pipeline_type=pipeline_type, extract_ema=extract_ema, scheduler_type=scheduler_type, num_in_channels=num_in_channels, upcast_attention=False, from_safetensors=True, device=device, stable_unclip=None, stable_unclip_prior=None, clip_stats_path=None, controlnet=None, to_safetensors=None, checkpoint_name=stabletensor_model_name, checkpoint_link=stabletensor_model, overwrite=overwrite_mode)
                     
 
