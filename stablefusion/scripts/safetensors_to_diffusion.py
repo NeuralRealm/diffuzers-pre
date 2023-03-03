@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """ Conversion script for the LDM checkpoints. """
-
+import ast
 import argparse
 import os
 import streamlit as st
@@ -50,9 +50,13 @@ def convert_to_diffusers_model(checkpoint_path, original_config_file, image_size
         pipe.controlnet.save_pretrained(dump_path, safe_serialization=to_safetensors)
     else:
         pipe.save_pretrained(dump_path, safe_serialization=to_safetensors)
+    
+    st.success("Your Model Has Been Created!")
+    append_created_model(model_name=str(checkpoint_name).split(".")[0])
 
 
 def download_ckpt_model(checkpoint_link, checkpoint_name):
+
     try:
         print("Started Downloading the model...")
         response = requests.get(checkpoint_link, stream=True)
@@ -71,6 +75,50 @@ def download_ckpt_model(checkpoint_link, checkpoint_name):
 
         print("Model Downloading Completed!")
 
+def read_model_file():
+
+    try:
+        with open('{}/model_list.txt'.format(current_path), 'r') as f:
+                contents = f.read()
+    except:
+        with open('stablefusion/model_list.txt', 'r') as f:
+                contents = f.read()
+
+    model_list = ast.literal_eval(contents)
+
+    return model_list
+
+
+def write_model_list(model_list):
+        
+        try:
+            with open('{}/model_list.txt'.format(current_path), 'w') as f:
+                f.write(model_list)
+        except:
+            with open('stablefusion/model_list.txt', 'w') as f:
+                f.write(model_list)
+
+
+def append_created_model(model_name):
+    model_list = read_model_file()
+    try:
+        apending_list = os.listdir("{}/models/diffusion_models".format(current_path))
+    except:
+        apending_list = os.listdir("stablefusion/models/diffusion_models")
+
+    for working_item in apending_list:
+        if str(working_item).split(".")[-1] == "txt":
+            pass
+        else:
+            if model_name not in model_list:
+                try:
+                    model_list.append("{}/models/diffusion_models/{}".format(current_path, model_name))
+                except:
+                    model_list.append("stablefusion/models/diffusion_models/{}".format(model_name))
+    
+    write_model_list(model_list=str(model_list))
+    st.success("Model Added to your List Now you can use this model at your Home Page.")
+
 
 def convert_safetensor_to_diffusers(original_config_file, image_size, prediction_type, pipeline_type, extract_ema, scheduler_type, num_in_channels, upcast_attention, from_safetensors, device, stable_unclip, stable_unclip_prior, clip_stats_path, controlnet, to_safetensors, checkpoint_name, checkpoint_link, overwrite):
 
@@ -80,7 +128,7 @@ def convert_safetensor_to_diffusers(original_config_file, image_size, prediction
         custom_diffusion_model = "{}/models/diffusion_models/{}".format(current_path, str(checkpoint_name).split(".")[0])
     except:
         custom_diffusion_model = "stablefusion/models/diffusion_models/{}".format(str(checkpoint_name).split(".")[0])
-
+    
     if overwrite is False:
         if not os.path.isfile(checkpoint_path):
 
