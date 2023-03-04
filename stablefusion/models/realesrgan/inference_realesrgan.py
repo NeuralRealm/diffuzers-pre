@@ -111,7 +111,7 @@ def main(model_name, denoise_strength, tile, tile_pad, pre_pad, fp32, gpu_id, fa
         img_str = base64.b64encode(buffered.getvalue()).decode()
         now = datetime.datetime.now()
         formatted_date_time = now.strftime("%Y-%m-%d_%H_%M_%S")
-        href = f'<a href="data:file/png;base64,{img_str}" download="realesrgan{formatted_date_time}.png">Download Image</a>'
+        href = f'<a href="data:file/png;base64,{img_str}" download="realesrgan_{formatted_date_time}.png">Download Image</a>'
         st.markdown(href, unsafe_allow_html=True)
         
             
