@@ -183,7 +183,7 @@ def display_and_download_images(output_images, metadata, download_col=None):
                 img_style={"margin": "5px", "height": "512px", "width": "512px"},
             )
 
-            now = datetime.datetime.now()
+            now = datetime.now()
             formatted_date_time = now.strftime("%Y-%m-%d_%H_%M_%S")
 
             # add download link
