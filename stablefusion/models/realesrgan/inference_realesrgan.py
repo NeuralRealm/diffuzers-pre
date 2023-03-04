@@ -109,11 +109,11 @@ def main(model_name, denoise_strength, tile, tile_pad, pre_pad, fp32, gpu_id, fa
             mime="image/png"
         )
         output_img = Image.fromarray(output_img)
-                    buffered = BytesIO()
-                    output_img.save(buffered, format="PNG")
-                    img_str = base64.b64encode(buffered.getvalue()).decode()
-                    href = f'<a href="data:file/png;base64,{img_str}" download="gfpgan.png">Download Image</a>'
-                    st.markdown(href, unsafe_allow_html=True)
+        buffered = BytesIO()
+        output_img.save(buffered, format="PNG")
+        img_str = base64.b64encode(buffered.getvalue()).decode()
+        href = f'<a href="data:file/png;base64,{img_str}" download="gfpgan.png">Download Image</a>'
+        st.markdown(href, unsafe_allow_html=True)
         
             
     except RuntimeError as error:
