@@ -102,13 +102,7 @@ def main(model_name, denoise_strength, tile, tile_pad, pre_pad, fp32, gpu_id, fa
         img = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
         st.image(img)
 
-        st.download_button(
-            label="Download Upscaled Image",
-            data=output,
-            file_name="upscaled_image.png",
-            mime="image/png"
-        )
-        output_img = Image.fromarray(output_img)
+        output_img = Image.fromarray(output)
         buffered = BytesIO()
         output_img.save(buffered, format="PNG")
         img_str = base64.b64encode(buffered.getvalue()).decode()
