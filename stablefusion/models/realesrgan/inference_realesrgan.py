@@ -102,7 +102,7 @@ def main(model_name, denoise_strength, tile, tile_pad, pre_pad, fp32, gpu_id, fa
         img = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
         st.image(img)
 
-        output_img = Image.fromarray(output)
+        output_img = Image.fromarray(output, model="RGB")
         buffered = BytesIO()
         output_img.save(buffered, format="PNG")
         img_str = base64.b64encode(buffered.getvalue()).decode()
