@@ -91,8 +91,8 @@ class Inpainting:
             guidance_scale=guidance_scale,
             num_images_per_prompt=num_images,
             generator=generator,
-            height=height,
-            width=width,
+            #height=height,
+            #width=width,
         ).images
         metadata = {
             "prompt": prompt,
