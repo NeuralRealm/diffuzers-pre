@@ -8,7 +8,7 @@ from typing import Optional
 import requests
 import streamlit as st
 import torch
-from diffusers import StableDiffusionInpaintPipeline
+from diffusers import StableDiffusionInpaintPipeline, StableDiffusionInpaintPipelineLegacy
 from loguru import logger
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
@@ -27,7 +27,7 @@ class Inpainting:
         return f"Inpainting(model={self.model}, device={self.device}, output_path={self.output_path})"
 
     def __post_init__(self):
-        self.pipeline = StableDiffusionInpaintPipeline.from_pretrained(
+        self.pipeline = StableDiffusionInpaintPipelineLegacy.from_pretrained(
             self.model,
             torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
             use_auth_token=utils.use_auth_token(),
