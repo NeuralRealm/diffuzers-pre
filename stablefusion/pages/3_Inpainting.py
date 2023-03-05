@@ -20,6 +20,7 @@ def app():
                 model=model,
                 device=st.session_state.device,
                 output_path=st.session_state.output_path,
+                pipeline_select=pipeline
             )
             st.session_state.inpainting = inpainting
     if "inpainting" in st.session_state:
