@@ -205,12 +205,9 @@ class Controlnet:
             
             elif self.processer == "Mlsd":
                 processed_image = mlsd_processer(image=input_image)
-
-            st.image(processed_image, use_column_width=True)
-        
-
-        elif self.processer == "Scribble":
-                
+            
+            elif self.processer == "Scribble":
+                    
                 if input_image is not None:
                     input_image = Image.open(input_image)
                     st.image(processed_image, use_column_width=True)
@@ -218,6 +215,8 @@ class Controlnet:
 
                 else:
                     processed_image = scribble_processer()
+
+            st.image(processed_image, use_column_width=True)
 
 
         # with st.form(key="img2img"):
