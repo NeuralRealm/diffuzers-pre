@@ -71,7 +71,7 @@ def scribble_processer():
         fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
         stroke_width=stroke_width,
         stroke_color="black",
-        background_color=""#eee"",
+        background_color="#eee",
         update_streamlit=True,
         height=768,
         width=768,
