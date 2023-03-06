@@ -18,7 +18,7 @@ from PIL import Image
 import numpy as np
 
 
-def canny_processor():
+def canny_processor(image):
 
     image = np.array(image)
 
@@ -42,7 +42,7 @@ class Controlnet:
     processer: Optional[str] = None
 
     def __str__(self) -> str:
-        return f"BaseModel(model={self.model}, device={self.device}, ControlNet={self.controlnet}, processer={self.processer}, output_path={self.output_path})"
+        return f"BaseModel(model={self.model}, device={self.device}, ControlNet={self.controlnet_model}, processer={self.processer}, output_path={self.output_path})"
     
     
     def __post_init__(self):
@@ -140,9 +140,8 @@ class Controlnet:
         if input_image is not None:
 
             if self.processer == "Canny":
-                processed_image = canny_processor()
-
-            input_image = Image.open(processed_image)
+                input_image = Image.open(processed_image)
+                processed_image = canny_processor(image=input_image)
             st.image(input_image, use_column_width=True)
 
         # with st.form(key="img2img"):
