@@ -81,7 +81,7 @@ def scribble_processer():
 
     if canvas_result.image_data is not None:
         image = canvas_result.image_data
-
+        image = Image.fromarray(image)
         return image
 
 
