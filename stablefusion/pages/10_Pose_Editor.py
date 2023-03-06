@@ -21,7 +21,7 @@ def app():
                 output_path=st.session_state.output_path,
             )
             st.session_state.openpose_editor = openpose
-    if "inpainting" in st.session_state:
+    if "openpose_editor" in st.session_state:
         st.write(f"Current model: {st.session_state.openpose_editor}")
         st.session_state.openpose_editor.app()
 
