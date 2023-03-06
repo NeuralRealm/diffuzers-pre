@@ -47,19 +47,19 @@ def app():
         processer = st.selectbox(label="Choose Your Processer: ", options=processer_list)
         submit = st.form_submit_button("Load model")
     if submit:
-        st.session_state.inpainting_model = base_model
+        st.session_state.controlnet_models = base_model
         with st.spinner("Loading model..."):
-            inpainting = Controlnet(
+            controlnet = Controlnet(
                 model=base_model,
                 device=st.session_state.device,
                 output_path=st.session_state.output_path,
                 controlnet_model=controlnet_model,
                 processer = processer
             )
-            st.session_state.inpainting = inpainting
-    if "inpainting" in st.session_state:
-        st.write(f"Current model: {st.session_state.inpainting}")
-        st.session_state.inpainting.app()
+            st.session_state.controlnet = controlnet
+    if "controlnet" in st.session_state:
+        st.write(f"Current model: {st.session_state.controlnet}")
+        st.session_state.controlnet.app()
 
 
 if __name__ == "__main__":
