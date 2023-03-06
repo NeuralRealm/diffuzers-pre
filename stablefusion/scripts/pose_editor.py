@@ -127,9 +127,9 @@ class OpenPoseEditor:
 
         input_image = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
 
-        if input_image is not None and self.processer != "Scribble":
+        if input_image is not None:
 
-            input_image = Image.open(input_image)
+            input_image = Image.open(input_image).convert("RGB")
 
             st.image(input_image, use_column_width=True)
 
