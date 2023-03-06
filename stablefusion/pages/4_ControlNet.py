@@ -11,7 +11,6 @@ control_net_model_list = ["lllyasviel/sd-controlnet-canny",
                           "lllyasviel/sd-controlnet-depth",
                           "lllyasviel/sd-controlnet-mlsd",
                           "lllyasviel/sd-controlnet-openpose",
-                          "lllyasviel/sd-controlnet-seg"
                           ]
 
 processer_list = [  "Canny",
@@ -21,7 +20,6 @@ processer_list = [  "Canny",
                     "Depth",
                     "Mlsd",
                     "OpenPose",
-                    "Seg"
                 ]
 
 
