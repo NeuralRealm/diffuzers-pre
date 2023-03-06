@@ -11,7 +11,7 @@ from diffusers import StableDiffusionControlNetPipeline, ControlNetModel
 from loguru import logger
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
-from controlnet_aux import OpenposeDetector, HEDdetector
+from controlnet_aux import OpenposeDetector, HEDdetector, MLSDdetector
 from stablefusion import utils
 import cv2
 from PIL import Image
@@ -36,6 +36,14 @@ def canny_processor(image):
 def openpose_processer(image):
 
     model = OpenposeDetector.from_pretrained("lllyasviel/ControlNet")
+    poses = model(image)
+    
+    return poses
+
+
+def mlsd_processer(image):
+
+    model = MLSDdetector.from_pretrained("lllyasviel/ControlNet")
     poses = model(image)
     
     return poses
@@ -165,6 +173,9 @@ class Controlnet:
             
             elif self.processer == "Hed":
                 processed_image = hed_processer(image=input_image)
+            
+            elif self.processer == "Mlsd":
+                processed_image = mlsd_processer(image=input_image)
 
             st.image(processed_image, use_column_width=True)
 
