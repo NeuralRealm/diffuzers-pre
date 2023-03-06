@@ -178,7 +178,6 @@ class Controlnet:
                     guidance_scale=guidance_scale,
                     steps=steps,
                     seed=seed,
-                    strength=strength,
                 )
 
             utils.display_and_download_images(output_images, metadata, download_col)
