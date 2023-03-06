@@ -8,7 +8,7 @@ def app():
     utils.create_base_page()
     with st.form("openpose_editor_form"):
         model = st.selectbox(
-            "Which model do you want to use for inpainting?",
+            "Which model do you want to use for OpenPose?",
             options=read_model_list()
         )
         submit = st.form_submit_button("Load model")
