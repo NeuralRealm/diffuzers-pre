@@ -18,8 +18,6 @@ from PIL import Image
 import numpy as np
 from streamlit_drawable_canvas import st_canvas
 from transformers import pipeline
-from transformers import AutoImageProcessor, UperNetForSemanticSegmentation
-from stablefusion.scripts.controlnet_utils import ade_palette
 
 
 def canny_processor(image):
@@ -131,35 +129,6 @@ def normal_processer(image):
     image = Image.fromarray(image)
 
     return image
-
-
-def seg_processer(image):
-
-    image_processor = AutoImageProcessor.from_pretrained("openmmlab/upernet-convnext-small")
-    image_segmentor = UperNetForSemanticSegmentation.from_pretrained("openmmlab/upernet-convnext-small")
-
-    image = Image.open("./images/house.png").convert('RGB')
-
-    pixel_values = image_processor(image, return_tensors="pt").pixel_values
-
-    with torch.no_grad():
-
-        outputs = image_segmentor(pixel_values)
-
-        seg = image_processor.post_process_semantic_segmentation(outputs, target_sizes=[image.size[::-1]])[0]
-
-        color_seg = np.zeros((seg.shape[0], seg.shape[1], 3), dtype=np.uint8) # height, width, 3
-
-        palette = np.array(ade_palette())
-
-        for label, color in enumerate(palette):
-            color_seg[seg == label, :] = color
-
-        color_seg = color_seg.astype(np.uint8)
-
-        image = Image.fromarray(color_seg)
-
-        return image
 
 
 @dataclass
@@ -300,8 +269,6 @@ class Controlnet:
             elif self.processer == "Normal":
                 processed_image = normal_processer(image=input_image)
             
-            elif self.processer == "Seg":
-                processed_image = seg_processer(image=input_image)
             
 
             st.image(processed_image, use_column_width=True)
