@@ -16,7 +16,7 @@ from stablefusion import utils
 import cv2
 from PIL import Image
 import numpy as np
-
+from streamlit_drawable_canvas import st_canvas
 
 def canny_processor(image):
 
@@ -55,6 +55,35 @@ def hed_processer(image):
     poses = model(image)
     
     return poses
+
+def scribble_processer():
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        drawing_mode = st.selectbox(
+                        "Drawing tool:", ("freedraw", "rect", "circle"), key="inpainting_drawing_mode"
+                    )
+    with col2:
+        stroke_width = st.slider("Stroke width: ", 1, 20, 5, key="inpainting_stroke_width")
+    
+    canvas_result = st_canvas(
+        fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
+        stroke_width=stroke_width,
+        stroke_color="black",
+        background_color=""#eee"",
+        update_streamlit=True,
+        height=768,
+        width=768,
+        drawing_mode=drawing_mode,
+        key="controlnet_canvas",
+    )
+
+    if canvas_result.image_data is not None:
+        image = canvas_result.image_data
+
+        return image
+
 
 @dataclass
 class Controlnet:
@@ -176,6 +205,9 @@ class Controlnet:
             
             elif self.processer == "Mlsd":
                 processed_image = mlsd_processer(image=input_image)
+            
+            elif self.processer == "Scribble":
+                processed_image = scribble_processer()
 
             st.image(processed_image, use_column_width=True)
 
