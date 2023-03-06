@@ -190,6 +190,17 @@ class Controlnet:
             )
 
         input_image = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
+
+        if self.processer == "Scribble":
+                    
+                if input_image is not None:
+                    input_image = Image.open(input_image)
+                    st.image(processed_image, use_column_width=True)
+                    processed_image = input_image
+
+                else:
+                    processed_image = scribble_processer()
+                    
         if input_image is not None:
 
             input_image = Image.open(input_image)
@@ -206,15 +217,6 @@ class Controlnet:
             elif self.processer == "Mlsd":
                 processed_image = mlsd_processer(image=input_image)
             
-            elif self.processer == "Scribble":
-                    
-                if input_image is not None:
-                    input_image = Image.open(input_image)
-                    st.image(processed_image, use_column_width=True)
-                    processed_image = input_image
-
-                else:
-                    processed_image = scribble_processer()
 
             st.image(processed_image, use_column_width=True)
 
