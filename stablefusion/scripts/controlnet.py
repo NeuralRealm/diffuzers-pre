@@ -34,7 +34,7 @@ def canny_processor():
 
 
 @dataclass
-class Img2Img:
+class Controlnet:
     model: Optional[str] = None
     device: Optional[str] = None
     output_path: Optional[str] = None
@@ -141,7 +141,7 @@ class Img2Img:
 
             if self.processer == "Canny":
                 processed_image = canny_processor()
-                
+
             input_image = Image.open(processed_image)
             st.image(input_image, use_column_width=True)
 
