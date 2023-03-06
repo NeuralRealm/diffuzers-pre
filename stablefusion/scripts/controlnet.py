@@ -17,6 +17,8 @@ import cv2
 from PIL import Image
 import numpy as np
 from streamlit_drawable_canvas import st_canvas
+from transformers import pipeline
+
 
 def canny_processor(image):
 
@@ -83,8 +85,21 @@ def scribble_processer():
 
         image = canvas_result.image_data
         image = Image.fromarray(image).convert("RGB")
-        
+
         return image
+
+
+def depth_processer(image):
+
+    depth_estimator = pipeline("depth-estimation")
+
+    image = depth_estimator(image)['depth']
+    image = np.array(image)
+    image = image[:, :, None]
+    image = np.concatenate([image, image, image], axis=2)
+    image = Image.fromarray(image)
+
+    return image
 
 
 @dataclass
@@ -218,6 +233,9 @@ class Controlnet:
             
             elif self.processer == "Mlsd":
                 processed_image = mlsd_processer(image=input_image)
+            
+            elif self.processer == "Depth":
+                processed_image = depth_processer(image=input_image)
             
 
             st.image(processed_image, use_column_width=True)
