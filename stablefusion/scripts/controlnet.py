@@ -82,7 +82,9 @@ def scribble_processer():
     if canvas_result.image_data is not None:
         image = canvas_result.image_data
         image = Image.fromarray(image)
-        return image
+        img = cv2.imread(image, cv2.IMREAD_UNCHANGED)
+        img_rgb = cv2.cvtColor(img)
+        return img_rgb
 
 
 @dataclass
