@@ -19,7 +19,7 @@ import numpy as np
 from streamlit_drawable_canvas import st_canvas
 from transformers import pipeline
 from transformers import AutoImageProcessor, UperNetForSemanticSegmentation
-from controlnet_utils import ade_palette
+from stablefusion.scripts.controlnet_utils import ade_palette
 
 
 def canny_processor(image):
