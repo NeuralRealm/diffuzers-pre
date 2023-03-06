@@ -1,10 +1,4 @@
-import streamlit as st
-import streamlit.components.v1 as components
-
-# bootstrap 4 collapse example
-components.html(
-    """
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html style="width:100%; height:100%;">
 <head>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -91,7 +85,7 @@ components.html(
  * Released under MIT License
  */
 !function(A,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):(A="undefined"!=typeof globalThis?globalThis:A||self).html2canvas=e()}(this,function(){"use strict";
-/*! *****************************************************************************
+/*! ******************************************************************************
     Copyright (c) Microsoft Corporation.
 
     Permission to use, copy, modify, and/or distribute this software for any
@@ -109,7 +103,7 @@ components.html(
     <script>
     let vResizing = false;
 let hResizing = false;
-let imagewidth = 512;
+let imagewidth = 512F;
 let imageheight = 512;
 let backimagewidth = 512;
 let backimageheight = 512;
@@ -1100,7 +1094,25 @@ function ShowCheckboxes2()
     }
 }
 
-
+function ShowCheckboxes3()
+{
+    if(checkboxes_showing1)
+    {
+        checkboxes_showing1 = false;
+        for(item of document.getElementsByName("check3"))
+        {
+            item.hidden = true;
+        }
+    }
+    else
+    {
+        checkboxes_showing1 = true;
+        for(item of document.getElementsByName("check3"))
+        {
+            item.hidden = false;
+        }
+    }
+}
 function ShowChar1(e)
 {
     if(char_showing1)
@@ -1225,240 +1237,249 @@ function ImagetoFile(canvas)
             <input id="imagewidth" type="number" style="width:5em; height:1.5em; left: 5em; color:black" maxlength="6" value="512" onblur="imageSizeChanged()">
         </div>
         <div style="width:12em; height:1.5em; position: relative; padding:0.25em; background-clip: content-box; flex-shrink: 0;">
-            <div style="width:4em; height:1.5em;">Height:</div>
+            <div style="width:4em; height:1.5em;">세로:</div>
             <input id="imageheight" type="number" style="width:5em; height:1.5em; left: 5em; color:black" maxlength="6" value="512" onblur="imageSizeChanged()">
         </div>
         <div style="width:12em; height:2.5em; position: relative; padding:0.25em; background-clip: content-box; flex-shrink: 0;">
-            <div style="width:4em; height:1.5em;">Dot size: </div>
+            <div style="width:4em; height:1.5em;">점 크기:</div>
             <input id="imagevertexsize" type="number" style="width:5em; height:1.5em; left: 5em; color:black" maxlength="6" value="8" onblur="imageSizeChanged()">
         </div>
 
         <div style="width:12em; height:1.5em; position: relative; padding:0.25em; background-color: #888; background-clip: content-box; flex-shrink: 0;" onclick="ShowCheckboxes1()">
-            <div style="width:3em; height:1.5em; left:1em">Person </div>
+            <div style="width:3em; height:1.5em; left:1em">사람 1</div>
             <div id="button_show1" class="buttonshow" onclick="ShowChar1(event)"></div>
+            <div id="button_lock1" class="buttonunlock" onclick="LockChar1(event)"></div>
         </div>
         <div name="check1" class="panelitem" style="background-color: rgb(255, 0, 0, 0.5);">
             <input id="check1_head" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_head" style="width:9.5em; height:1em; left: 2.5em;">Nose</label>
+            <label for="check1_head" style="width:9.5em; height:1em; left: 2.5em;">코</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(170, 0, 255, 0.5);">
             <input id="check1_lefteye" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_lefteye" style="width:9.5em; height:1em; left: 2.5em;">Left Eye</label>
+            <label for="check1_lefteye" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 눈</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(255, 0, 170, 0.5);">
             <input id="check1_righteye" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_righteye" style="width:9.5em; height:1em; left: 2.5em;">Right Eye</label>
+            <label for="check1_righteye" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 눈</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(255, 0, 255, 0.5);">
             <input id="check1_leftear" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_leftear" style="width:9.5em; height:1em; left: 2.5em;">Left Ear</label>
+            <label for="check1_leftear" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 귀</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(255, 0, 85, 0.5);">
             <input id="check1_rightear" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_rightear" style="width:9.5em; height:1em; left: 2.5em;">Right Ear</label>
+            <label for="check1_rightear" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 귀</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(255, 85, 0, 0.5);">
             <input id="check1_chest" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_chest" style="width:9.5em; height:1em; left: 2.5em;">Neck</label>
+            <label for="check1_chest" style="width:9.5em; height:1em; left: 2.5em;">목</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(255, 170, 0, 0.5);">
             <input id="check1_leftshoulder" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_leftshoulder" style="width:9.5em; height:1em; left: 2.5em;">Left Shoulder</label>
+            <label for="check1_leftshoulder" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 어께</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(85, 255, 0, 0.5);">
             <input id="check1_rightshoulder" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_rightshoulder" style="width:9.5em; height:1em; left: 2.5em;">Right Shoulder</label>
+            <label for="check1_rightshoulder" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 어께</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(255, 255, 0, 0.5);">
             <input id="check1_leftelbow" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_leftelbow" style="width:9.5em; height:1em; left: 2.5em;">Left Elbow</label>
+            <label for="check1_leftelbow" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 팔꿈치</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(0, 255, 0, 0.5);">
             <input id="check1_rightelbow" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_rightelbow" style="width:9.5em; height:1em; left: 2.5em;">Right Elbow</label>
+            <label for="check1_rightelbow" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 팔꿈치</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(170, 255, 0, 0.5)">
             <input id="check1_lefthand" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_lefthand" style="width:9.5em; height:1em; left: 2.5em;">Left Hand</label>
+            <label for="check1_lefthand" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 손</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(0, 255, 85, 0.5);">
             <input id="check1_righthand" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_righthand" style="width:9.5em; height:1em; left: 2.5em;">Right Hand</label>
+            <label for="check1_righthand" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 손</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(0, 255, 170, 0.5);">
             <input id="check1_lefthip" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_lefthip" style="width:9.5em; height:1em; left: 2.5em;">Left Hip</label>
+            <label for="check1_lefthip" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 골반</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(0, 85, 255, 0.5);">
             <input id="check1_righthip" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_righthip" style="width:9.5em; height:1em; left: 2.5em;">Right Hip</label>
+            <label for="check1_righthip" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 골반</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(0, 255, 255, 0.5);">
             <input id="check1_leftknee" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_leftknee" style="width:9.5em; height:1em; left: 2.5em;">Left Knee</label>
+            <label for="check1_leftknee" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 무릎</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(0, 0, 255, 0.5);">
             <input id="check1_rightknee" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_rightknee" style="width:9.5em; height:1em; left: 2.5em;">Right Knee</label>
+            <label for="check1_rightknee" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 무릎</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(0, 170, 255, 0.5)">
             <input id="check1_leftfeet" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_leftfeet" style="width:9.5em; height:1em; left: 2.5em;">Left Feet</label>
+            <label for="check1_leftfeet" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 발</label>
         </div>
         <div name="check1"  class="panelitem" style="background-color: rgb(85, 0, 255, 0.5);">
             <input id="check1_rightfeet" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check1_rightfeet" style="width:9.5em; height:1em; left: 2.5em;">Right Feet</label>
+            <label for="check1_rightfeet" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 발</label>
         </div>
 
-
+        <div style="width:12em; height:1.5em; position: relative; padding:0.25em; background-color: #888; background-clip: content-box; flex-shrink: 0;" onclick="ShowCheckboxes2()">
+            <div style="width:3em; height:1.5em; left:1em">사람 2</div>
+            <div id="button_show2" class="buttonhide" onclick="ShowChar2(event)"></div>
+            <div id="button_lock2" class="buttonunlock" onclick="LockChar2(event)"></div>
+        </div>
 
         <div name="check2" class="panelitem" hidden style="background-color: rgb(255, 0, 0, 0.5);">
             <input id="check2_head" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_head" style="width:9.5em; height:1em; left: 2.5em;">Nose</label>
+            <label for="check2_head" style="width:9.5em; height:1em; left: 2.5em;">코</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(170, 0, 255, 0.5);">
             <input id="check2_lefteye" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_lefteye" style="width:9.5em; height:1em; left: 2.5em;">Left Eye</label>
+            <label for="check2_lefteye" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 눈</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(255, 0, 170, 0.5);">
             <input id="check2_righteye" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_righteye" style="width:9.5em; height:1em; left: 2.5em;">Right Eye</label>
+            <label for="check2_righteye" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 눈</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(255, 0, 255, 0.5);">
             <input id="check2_leftear" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_leftear" style="width:9.5em; height:1em; left: 2.5em;">Left Ear</label>
+            <label for="check2_leftear" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 귀</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(255, 0, 85, 0.5);">
             <input id="check2_rightear" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_rightear" style="width:9.5em; height:1em; left: 2.5em;">Right Ear</label>
+            <label for="check2_rightear" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 귀</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(255, 85, 0, 0.5);">
             <input id="check2_chest" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_chest" style="width:9.5em; height:1em; left: 2.5em;">Neck</label>
+            <label for="check2_chest" style="width:9.5em; height:1em; left: 2.5em;">목</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(255, 170, 0, 0.5);">
             <input id="check2_leftshoulder" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_leftshoulder" style="width:9.5em; height:1em; left: 2.5em;">Left Shoulder</label>
+            <label for="check2_leftshoulder" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 어께</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(85, 255, 0, 0.5);">
             <input id="check2_rightshoulder" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_rightshoulder" style="width:9.5em; height:1em; left: 2.5em;">Right Shoulder</label>
+            <label for="check2_rightshoulder" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 어께</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(255, 255, 0, 0.5);">
             <input id="check2_leftelbow" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_leftelbow" style="width:9.5em; height:1em; left: 2.5em;">Left Elbow</label>
+            <label for="check2_leftelbow" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 팔꿈치</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(0, 255, 0, 0.5);">
             <input id="check2_rightelbow" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_rightelbow" style="width:9.5em; height:1em; left: 2.5em;">Right Elbow</label>
+            <label for="check2_rightelbow" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 팔꿈치</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(170, 255, 0, 0.5)">
             <input id="check2_lefthand" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_lefthand" style="width:9.5em; height:1em; left: 2.5em;">Left Hand</label>
+            <label for="check2_lefthand" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 손</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(0, 255, 85, 0.5);">
             <input id="check2_righthand" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_righthand" style="width:9.5em; height:1em; left: 2.5em;">Right Hand</label>
+            <label for="check2_righthand" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 손</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(0, 255, 170, 0.5);">
             <input id="check2_lefthip" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_lefthip" style="width:9.5em; height:1em; left: 2.5em;">Left Hip</label>
+            <label for="check2_lefthip" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 골반</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(0, 85, 255, 0.5);">
             <input id="check2_righthip" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_righthip" style="width:9.5em; height:1em; left: 2.5em;">Right Hip</label>
+            <label for="check2_righthip" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 골반</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(0, 255, 255, 0.5);">
             <input id="check2_leftknee" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_leftknee" style="width:9.5em; height:1em; left: 2.5em;">Left Knee</label>
+            <label for="check2_leftknee" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 무릎</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(0, 0, 255, 0.5);">
             <input id="check2_rightknee" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_rightknee" style="width:9.5em; height:1em; left: 2.5em;">Right Knee</label>
+            <label for="check2_rightknee" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 무릎</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(0, 170, 255, 0.5)">
             <input id="check2_leftfeet" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_leftfeet" style="width:9.5em; height:1em; left: 2.5em;">Left Feet</label>
+            <label for="check2_leftfeet" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 발</label>
         </div>
         <div name="check2"  class="panelitem" hidden style="background-color: rgb(85, 0, 255, 0.5);">
             <input id="check2_rightfeet" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check2_rightfeet" style="width:9.5em; height:1em; left: 2.5em;">Right Feet</label>
+            <label for="check2_rightfeet" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 발</label>
         </div>
 
-        
+        <div style="width:12em; height:1.5em; position: relative; padding:0.25em; background-color: #888; background-clip: content-box; flex-shrink: 0;" onclick="ShowCheckboxes3()">
+            <div style="width:3em; height:1.5em; left:1em">사람 3</div>
+            <div id="button_show3" class="buttonhide" onclick="ShowChar3(event)"></div>
+            <div id="button_lock3" class="buttonunlock" onclick="LockChar3(event)"></div>
+        </div>
 
 
         <div name="check3" class="panelitem" hidden style="background-color: rgb(255, 0, 0, 0.5);">
             <input id="check3_head" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_head" style="width:9.5em; height:1em; left: 2.5em;">Nose</label>
+            <label for="check3_head" style="width:9.5em; height:1em; left: 2.5em;">코</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(170, 0, 255, 0.5);">
             <input id="check3_lefteye" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_lefteye" style="width:9.5em; height:1em; left: 2.5em;">Left Eye</label>
+            <label for="check3_lefteye" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 눈</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(255, 0, 170, 0.5);">
             <input id="check3_righteye" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_righteye" style="width:9.5em; height:1em; left: 2.5em;">Right Eye</label>
+            <label for="check3_righteye" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 눈</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(255, 0, 255, 0.5);">
             <input id="check3_leftear" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_leftear" style="width:9.5em; height:1em; left: 2.5em;">Left Ear</label>
+            <label for="check3_leftear" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 귀</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(255, 0, 85, 0.5);">
             <input id="check3_rightear" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_rightear" style="width:9.5em; height:1em; left: 2.5em;">Right Ear</label>
+            <label for="check3_rightear" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 귀</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(255, 85, 0, 0.5);">
             <input id="check3_chest" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_chest" style="width:9.5em; height:1em; left: 2.5em;">Neck</label>
+            <label for="check3_chest" style="width:9.5em; height:1em; left: 2.5em;">목</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(255, 170, 0, 0.5);">
             <input id="check3_leftshoulder" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_leftshoulder" style="width:9.5em; height:1em; left: 2.5em;">Left Shoulder</label>
+            <label for="check3_leftshoulder" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 어께</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(85, 255, 0, 0.5);">
             <input id="check3_rightshoulder" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_rightshoulder" style="width:9.5em; height:1em; left: 2.5em;">Right Shoulder</label>
+            <label for="check3_rightshoulder" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 어께</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(255, 255, 0, 0.5);">
             <input id="check3_leftelbow" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_leftelbow" style="width:9.5em; height:1em; left: 2.5em;">Left Elbow</label>
+            <label for="check3_leftelbow" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 팔꿈치</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(0, 255, 0, 0.5);">
             <input id="check3_rightelbow" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_rightelbow" style="width:9.5em; height:1em; left: 2.5em;">Right Elbow</label>
+            <label for="check3_rightelbow" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 팔꿈치</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(170, 255, 0, 0.5)">
             <input id="check3_lefthand" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_lefthand" style="width:9.5em; height:1em; left: 2.5em;">Left Hand</label>
+            <label for="check3_lefthand" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 손</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(0, 255, 85, 0.5);">
             <input id="check3_righthand" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_righthand" style="width:9.5em; height:1em; left: 2.5em;">Right Hand</label>
+            <label for="check3_righthand" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 손</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(0, 255, 170, 0.5);">
             <input id="check3_lefthip" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_lefthip" style="width:9.5em; height:1em; left: 2.5em;">Left Hip</label>
+            <label for="check3_lefthip" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 골반</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(0, 85, 255, 0.5);">
             <input id="check3_righthip" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_righthip" style="width:9.5em; height:1em; left: 2.5em;">Right Hip</label>
+            <label for="check3_righthip" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 골반</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(0, 255, 255, 0.5);">
             <input id="check3_leftknee" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_leftknee" style="width:9.5em; height:1em; left: 2.5em;">Left Knee</label>
+            <label for="check3_leftknee" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 무릎</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(0, 0, 255, 0.5);">
             <input id="check3_rightknee" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_rightknee" style="width:9.5em; height:1em; left: 2.5em;">Right Knee</label>
+            <label for="check3_rightknee" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 무릎</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(0, 170, 255, 0.5)">
             <input id="check3_leftfeet" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_leftfeet" style="width:9.5em; height:1em; left: 2.5em;">Left Feet</label>
+            <label for="check3_leftfeet" style="width:9.5em; height:1em; left: 2.5em;">왼쪽 발</label>
         </div>
         <div name="check3"  class="panelitem" hidden style="background-color: rgb(85, 0, 255, 0.5);">
             <input id="check3_rightfeet" type="checkbox" style="left: 0.5em; top:0.4em;" checked onchange="checkstateChanged()">
-            <label for="check3_rightfeet" style="width:9.5em; height:1em; left: 2.5em;">Right Feet</label>
+            <label for="check3_rightfeet" style="width:9.5em; height:1em; left: 2.5em;">오른쪽 발</label>
         </div>
     </div>
     <div id="frame1" style="left:25%; width:75%; height:100%;" >
@@ -1595,19 +1616,20 @@ function ImagetoFile(canvas)
                 </div>
             </div>
         </div>
-        <div id="bottomframe" style="width:100%; height:5%; top:90%">
+        <div id="bottomframe" style="width:100%; height:5%; top:95%">
             <fieldset>
-                
-                <input type="button" style="width:7em; height:1.5em; left:25em; top:1em; color:black" value="Save Image" onclick="ImageSave()">
+                <input id="fittolarge" type="radio" name="fit" style="left:1em; top:1em" checked onchange="fitChange()">
+                <label for="fittolarge" style="width:8em; height:1.5em; left: 3em; top:1em;">넓은 쪽에 맞춤</label>
+                <input id="fittonarrow" type="radio" name="fit" style="left:12em; top:1em" onchange="fitChange()">
+                <label for="fittonarrow" style="width:8em; height:1.5em; left: 14em; top:1em;">좁은 쪽에 맞춤</label>
+                <input type="button" style="width:7em; height:1.5em; left:25em; top:1em; color:black" value="이미지 저장" onclick="ImageSave()">
                 <a id="download" style="display: none"></a>
             </fieldset>
         </div>
-        
+        <div id="splity" style="top:95%; width:100%; height:4px; background-color: silver; cursor:row-resize"
+            onmousedown="vResizeStart()"></div>
     </div>
     <div id="splitx" style="left:25%; width:4px; height:100%; background-color: silver; cursor:col-resize"
             onmousedown="hResizeStart()"></div>
 </body>
 </html>
-    """,
-    height=600,
-)
