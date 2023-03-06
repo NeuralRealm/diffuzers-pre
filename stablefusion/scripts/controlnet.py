@@ -140,9 +140,9 @@ class Controlnet:
         if input_image is not None:
 
             if self.processer == "Canny":
-                input_image = Image.open(processed_image)
+                input_image = Image.open(input_image)
                 processed_image = canny_processor(image=input_image)
-            st.image(input_image, use_column_width=True)
+            st.image(processed_image, use_column_width=True)
 
         # with st.form(key="img2img"):
         col1, col2 = st.columns(2)
