@@ -93,7 +93,7 @@ class Controlnet:
         self.pipeline.scheduler = scheduler
 
     def generate_image(
-        self, prompt, image, negative_prompt, scheduler, num_images, guidance_scale, steps, seed
+        self, prompt, image, negative_prompt, scheduler, num_images, guidance_scale, steps, seed, height, width
     ):
         self._set_scheduler(scheduler)
         logger.info(self.pipeline.scheduler)
@@ -111,6 +111,8 @@ class Controlnet:
             guidance_scale=guidance_scale,
             num_images_per_prompt=num_images,
             generator=generator,
+            height=height,
+            width=width
         ).images
         torch.cuda.empty_cache()
         gc.collect()
@@ -153,7 +155,7 @@ class Controlnet:
             
             elif self.processer == "OpenPose":
                 processed_image = openpose_processer(image=input_image)
-                
+
             st.image(processed_image, use_column_width=True)
 
 
@@ -165,6 +167,8 @@ class Controlnet:
             negative_prompt = st.text_area("Negative Prompt", "", help="The prompt not to guide image generation. Write things that you dont want to see in the image.")
 
         scheduler = st.sidebar.selectbox("Scheduler", available_schedulers, index=0, help="Scheduler(Sampler) to use for generation")
+        image_height = st.sidebar.slider("Image height", 128, 1024, 512, 128, help="The height in pixels of the generated image.")
+        image_width = st.sidebar.slider("Image width", 128, 1024, 512, 128, help="The width in pixels of the generated image.")
         guidance_scale = st.sidebar.slider("Guidance scale", 1.0, 40.0, 7.5, 0.5, help="Higher guidance scale encourages to generate images that are closely linked to the text `prompt`, usually at the expense of lower image quality.")
         num_images = st.sidebar.slider("Number of images per prompt", 1, 30, 1, 1, help="Number of images you want to generate. More images requires more time and uses more GPU memory.")
         steps = st.sidebar.slider("Steps", 1, 150, 50, 1, help="The number of denoising steps. More denoising steps usually lead to a higher quality image at the expense of slower inference.")
@@ -193,6 +197,8 @@ class Controlnet:
                     guidance_scale=guidance_scale,
                     steps=steps,
                     seed=seed,
+                    height=image_height,
+                    width=image_width
                 )
 
             utils.display_and_download_images(output_images, metadata, download_col)
