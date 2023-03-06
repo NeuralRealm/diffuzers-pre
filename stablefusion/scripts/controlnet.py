@@ -195,12 +195,12 @@ class Controlnet:
                     
                 if input_image is not None:
                     input_image = Image.open(input_image)
-                    st.image(processed_image, use_column_width=True)
+                    st.image(input_image, use_column_width=True)
                     processed_image = input_image
 
                 else:
                     processed_image = scribble_processer()
-                    
+
         if input_image is not None:
 
             input_image = Image.open(input_image)
