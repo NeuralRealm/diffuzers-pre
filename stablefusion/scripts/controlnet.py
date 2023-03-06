@@ -201,7 +201,7 @@ class Controlnet:
                 else:
                     processed_image = scribble_processer()
 
-        if input_image is not None:
+        if input_image is not None and self.processer != "Scribble":
 
             input_image = Image.open(input_image)
             
