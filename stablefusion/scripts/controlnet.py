@@ -85,7 +85,7 @@ class Controlnet:
         self.pipeline.scheduler = scheduler
 
     def generate_image(
-        self, prompt, image, strength, negative_prompt, scheduler, num_images, guidance_scale, steps, seed
+        self, prompt, image, negative_prompt, scheduler, num_images, guidance_scale, steps, seed
     ):
         self._set_scheduler(scheduler)
         logger.info(self.pipeline.scheduler)
@@ -98,7 +98,6 @@ class Controlnet:
         output_images = self.pipeline(
             prompt=prompt,
             image=image,
-            strength=strength,
             negative_prompt=negative_prompt,
             num_inference_steps=steps,
             guidance_scale=guidance_scale,
