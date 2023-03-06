@@ -3,7 +3,7 @@ import json
 from dataclasses import dataclass
 from io import BytesIO
 from typing import Optional, Union
-
+import random
 import requests
 import streamlit as st
 import torch
@@ -152,16 +152,18 @@ class Controlnet:
 
         scheduler = st.sidebar.selectbox("Scheduler", available_schedulers, index=0, help="Scheduler(Sampler) to use for generation")
         guidance_scale = st.sidebar.slider("Guidance scale", 1.0, 40.0, 7.5, 0.5, help="Higher guidance scale encourages to generate images that are closely linked to the text `prompt`, usually at the expense of lower image quality.")
-        strength = st.sidebar.slider("Denoise Strength", 0.0, 1.0, 0.5, 0.05)
         num_images = st.sidebar.slider("Number of images per prompt", 1, 30, 1, 1, help="Number of images you want to generate. More images requires more time and uses more GPU memory.")
         steps = st.sidebar.slider("Steps", 1, 150, 50, 1, help="The number of denoising steps. More denoising steps usually lead to a higher quality image at the expense of slower inference.")
-        seed_placeholder = st.sidebar.empty()
-        seed = seed_placeholder.number_input("Seed", value=42, min_value=1, max_value=999999, step=1)
-        random_seed = st.sidebar.button("Random seed")
-        _seed = torch.randint(1, 999999, (1,)).item()
-        if random_seed:
-            seed = seed_placeholder.number_input("Seed", value=_seed, min_value=1, max_value=999999, step=1)
-        # seed = st.sidebar.number_input("Seed", 1, 999999, 1, 1)
+        seed_choice = st.sidebar.selectbox("Do you want a random seed", options=["Yes", "No"])
+        if seed_choice == "Yes":
+            seed = random.randint(0, 9999999)
+        else:
+            seed = st.sidebar.number_input(
+                "Seed",
+                value=42,
+                step=1,
+                help="Random seed. Change for different results using same parameters.",
+            )
         sub_col, download_col = st.columns(2)
         with sub_col:
             submit = st.button("Generate")
@@ -170,7 +172,7 @@ class Controlnet:
             with st.spinner("Generating images..."):
                 output_images, metadata = self.generate_image(
                     prompt=prompt,
-                    image=input_image,
+                    image=processed_image,
                     negative_prompt=negative_prompt,
                     scheduler=scheduler,
                     num_images=num_images,
