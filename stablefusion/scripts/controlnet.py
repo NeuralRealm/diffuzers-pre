@@ -11,7 +11,7 @@ from diffusers import StableDiffusionControlNetPipeline, ControlNetModel
 from loguru import logger
 from PIL import Image
 from PIL.PngImagePlugin import PngInfo
-
+from controlnet_aux import OpenposeDetector
 from stablefusion import utils
 import cv2
 from PIL import Image
@@ -31,6 +31,14 @@ def canny_processor(image):
     canny_image = Image.fromarray(image)
     
     return canny_image
+
+
+def openpose_processer(image):
+
+    model = OpenposeDetector.from_pretrained("lllyasviel/ControlNet")
+    poses = model(image)
+    
+    return poses
 
 
 @dataclass
@@ -138,10 +146,16 @@ class Controlnet:
         input_image = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
         if input_image is not None:
 
+            input_image = Image.open(input_image)
+            
             if self.processer == "Canny":
-                input_image = Image.open(input_image)
                 processed_image = canny_processor(image=input_image)
+            
+            elif self.processer == "OpenPose":
+                processed_image = openpose_processer(image=input_image)
+                
             st.image(processed_image, use_column_width=True)
+
 
         # with st.form(key="img2img"):
         col1, col2 = st.columns(2)
