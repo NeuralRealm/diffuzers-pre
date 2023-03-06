@@ -65,7 +65,7 @@ def scribble_processer():
                         "Drawing tool:", ("freedraw", "rect", "circle"), key="inpainting_drawing_mode"
                     )
     with col2:
-        stroke_width = st.slider("Stroke width: ", 1, 20, 5, key="inpainting_stroke_width")
+        stroke_width = st.slider("Stroke width: ", 1, 20, 3, key="inpainting_stroke_width")
     
     canvas_result = st_canvas(
         fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
@@ -205,11 +205,19 @@ class Controlnet:
             
             elif self.processer == "Mlsd":
                 processed_image = mlsd_processer(image=input_image)
-            
-            elif self.processer == "Scribble":
-                processed_image = scribble_processer()
 
             st.image(processed_image, use_column_width=True)
+        
+
+        elif self.processer == "Scribble":
+                
+                if input_image is not None:
+                    input_image = Image.open(input_image)
+                    st.image(processed_image, use_column_width=True)
+                    processed_image = input_image
+
+                else:
+                    processed_image = scribble_processer()
 
 
         # with st.form(key="img2img"):
