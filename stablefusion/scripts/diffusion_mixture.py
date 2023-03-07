@@ -96,6 +96,7 @@ class DiffusionMixture:
         # with st.form(key="text2img"):
         prompt = st.text_area("Prompt", example_prompt, help="Prompt to guide image generation")
         prompt = eval(str(prompt))
+        st.text(prompt)
         # sidebar options
         scheduler = st.sidebar.selectbox("Scheduler", available_schedulers, index=0, help="Scheduler(Sampler) to use for generation")
         image_height = st.sidebar.slider("Image height", 128, 1024, 512, 128, help="The height in pixels of the generated image.")
