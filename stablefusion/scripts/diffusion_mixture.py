@@ -10,7 +10,7 @@ from loguru import logger
 from PIL.PngImagePlugin import PngInfo
 
 from stablefusion import utils
-from mixdiff import StableDiffusionTilingPipeline
+from stablefusion.scripts.mixdiff.tiling import StableDiffusionTilingPipeline
 
 @dataclass
 class DiffusionMixture:
@@ -42,7 +42,7 @@ class DiffusionMixture:
         scheduler = self.compatible_schedulers[scheduler_name].from_config(self.scheduler_config)
         self.pipeline.scheduler = scheduler
 
-    def generate_image(self, prompt, negative_prompt, scheduler, image_size, num_images, guidance_scale, steps, seed):
+    def generate_image(self, prompt, scheduler, image_size, num_images, guidance_scale, steps, seed):
         self._set_scheduler(scheduler)
         logger.info(self.pipeline.scheduler)
         if self.device == "mps":
@@ -53,7 +53,6 @@ class DiffusionMixture:
         num_images = int(num_images)
         output_images = self.pipeline(
             prompt,
-            negative_prompt=negative_prompt,
             width=image_size[1],
             height=image_size[0],
             num_inference_steps=steps,

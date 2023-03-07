@@ -27,4 +27,3 @@ xformers
 bitsandbytes
 safetensors
 controlnet_aux
-mixdiff>=1.1.2
