@@ -40,9 +40,9 @@ class DiffusionMixture:
 
     def generate_image(self, prompt, seed):
         output_images = self.pipeline(
-            [prompt],
+            prompt=[prompt],
             seed=7178915308,
-        ).images
+        )["sample"][0]
         torch.cuda.empty_cache()
         gc.collect()
         metadata = {
@@ -67,6 +67,7 @@ class DiffusionMixture:
         # with st.form(key="text2img"):
         prompt = st.text_area("Prompt", example_prompt, help="Prompt to guide image generation")
         prompt = eval(str(prompt))
+        st.text(prompt)
         # sidebar options
         image_height = st.sidebar.slider("Image height", 128, 1024, 512, 128, help="The height in pixels of the generated image.")
         image_width = st.sidebar.slider("Image width", 128, 1024, 512, 128, help="The width in pixels of the generated image.")
