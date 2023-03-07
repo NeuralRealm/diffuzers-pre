@@ -12,6 +12,13 @@ from PIL.PngImagePlugin import PngInfo
 from stablefusion import utils
 from stablefusion.scripts.mixdiff.tiling import StableDiffusionTilingPipeline
 
+
+example_prompt = """[
+        "A charming house in the countryside, by jakub rozalski, sunset lighting, elegant, highly detailed, smooth, sharp focus, artstation, stunning masterpiece",
+        "A dirt road in the countryside crossing pastures, by jakub rozalski, sunset lighting, elegant, highly detailed, smooth, sharp focus, artstation, stunning masterpiece",
+        "An old and rusty giant robot lying on a dirt road, by jakub rozalski, dark sunset lighting, elegant, highly detailed, smooth, sharp focus, artstation, stunning masterpiece"
+    ]"""
+
 @dataclass
 class DiffusionMixture:
     device: Optional[str] = None
@@ -52,7 +59,7 @@ class DiffusionMixture:
             generator = torch.Generator(device=self.device).manual_seed(seed)
         num_images = int(num_images)
         output_images = self.pipeline(
-            prompt,
+            [prompt],
             tile_width = image_size[1],
             tile_height=image_size[0],
             num_inference_steps=steps,
@@ -91,8 +98,8 @@ class DiffusionMixture:
                 0, available_schedulers.pop(available_schedulers.index("EulerAncestralDiscreteScheduler"))
             )
         # with st.form(key="text2img"):
-        prompt = st.text_area("Prompt", "Blue elephant", help="Prompt to guide image generation")
-        prompt = eval(prompt)
+        prompt = st.text_area("Prompt", example_prompt, help="Prompt to guide image generation")
+        prompt = eval(str(prompt))
         # sidebar options
         scheduler = st.sidebar.selectbox("Scheduler", available_schedulers, index=0, help="Scheduler(Sampler) to use for generation")
         image_height = st.sidebar.slider("Image height", 128, 1024, 512, 128, help="The height in pixels of the generated image.")
