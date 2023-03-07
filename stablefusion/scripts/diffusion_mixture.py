@@ -5,7 +5,7 @@ from typing import Optional
 
 import streamlit as st
 import torch
-from diffusers import DiffusionPipeline
+from diffusers import DiffusionPipeline, LMSDiscreteScheduler
 from loguru import logger
 from PIL.PngImagePlugin import PngInfo
 
@@ -29,8 +29,10 @@ class DiffusionMixture:
         return f"DiffusionMixture(model={self.model}, device={self.device}, output_path={self.output_path})"
 
     def __post_init__(self):
+        scheduler = LMSDiscreteScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", num_train_timesteps=1000)
         self.pipeline = StableDiffusionTilingPipeline.from_pretrained(
             self.model,
+            scheduler=scheduler,
             torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
         )
         self.pipeline.to(self.device)
