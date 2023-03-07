@@ -18,7 +18,7 @@ example_prompt = """[
         "An old and rusty giant robot lying on a dirt road, by jakub rozalski, dark sunset lighting, elegant, highly detailed, smooth, sharp focus, artstation, stunning masterpiece"
     ]"""
 
-ex_prompt=[[
+prompt=[[
         "A charming house in the countryside, by jakub rozalski, sunset lighting, elegant, highly detailed, smooth, sharp focus, artstation, stunning masterpiece",
         "A dirt road in the countryside crossing pastures, by jakub rozalski, sunset lighting, elegant, highly detailed, smooth, sharp focus, artstation, stunning masterpiece",
         "An old and rusty giant robot lying on a dirt road, by jakub rozalski, dark sunset lighting, elegant, highly detailed, smooth, sharp focus, artstation, stunning masterpiece"
@@ -45,11 +45,9 @@ class DiffusionMixture:
 
     def generate_image(self, prompt, seed):
         output_images = self.pipeline(
-            prompt=ex_prompt,
+            prompt=[prompt],
             seed=7178915308,
         )["sample"][0]
-        torch.cuda.empty_cache()
-        gc.collect()
         metadata = {
             "prompt": prompt,
             "seed": seed,
