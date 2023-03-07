@@ -40,12 +40,18 @@ class DiffusionMixture:
             self.model,
             scheduler=self.scheduler,
         )
-        self.pipeline.to("cuda:0")
+        self.pipeline.to(self.device)
 
     def generate_image(self, prompt, seed):
         output_images = self.pipeline(
             prompt=[prompt],
             seed=7178915308,
+            tile_height=640,
+            tile_width=640,
+            tile_row_overlap=0,
+            tile_col_overlap=256,
+            guidance_scale=8,
+            num_inference_steps=50
         )["sample"][0]
         torch.cuda.empty_cache()
         gc.collect()
