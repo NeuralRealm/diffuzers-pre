@@ -2,6 +2,7 @@ import streamlit as st
 
 from stablefusion import utils
 from stablefusion.scripts.diffusion_mixture1 import DiffusionMixture
+from stablefusion.scripts.diffusion_mixture2 import app
 from stablefusion.Home import read_model_list
 
 
@@ -15,6 +16,8 @@ def app():
         submit = st.form_submit_button("Load model")
     if submit:
         with st.spinner("Loading model..."):
+            app()
+            """
             diffusion_mixture = DiffusionMixture(
                 model=model,
                 device=st.session_state.device,
@@ -23,7 +26,7 @@ def app():
             st.session_state.diffusion_mixture = diffusion_mixture
     if "diffusion_mixture" in st.session_state:
         st.write(f"Current model: {st.session_state.diffusion_mixture}")
-        st.session_state.diffusion_mixture.app()
+        st.session_state.app()"""
 
 
 if __name__ == "__main__":
