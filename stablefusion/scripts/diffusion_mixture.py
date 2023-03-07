@@ -63,7 +63,11 @@ class DiffusionMixture:
             tile_height=image_size[0],
             num_inference_steps=steps,
             guidance_scale=guidance_scale,
-            generator=generator,
+            tile_row_overlap=0,
+            tile_col_overlap=256,
+            guidance_scale=guidance_scale,
+            seed=seed,
+            num_inference_steps=steps,
         ).images
         torch.cuda.empty_cache()
         gc.collect()
