@@ -35,10 +35,10 @@ class DiffusionMixture:
     
 
     def __post_init__(self):
-        scheduler = LMSDiscreteScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", num_train_timesteps=1000)
+        self.scheduler = LMSDiscreteScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", num_train_timesteps=1000)
         self.pipeline = StableDiffusionTilingPipeline.from_pretrained(
             self.model,
-            scheduler=scheduler,
+            scheduler=self.scheduler,
         )
         self.pipeline.to(self.device)
 
@@ -48,7 +48,7 @@ class DiffusionMixture:
             seed=7178915308,
         )["sample"][0]
         torch.cuda.empty_cache()
-       # gc.collect()
+        gc.collect()
         metadata = {
             "prompt": prompt,
             "seed": seed,
