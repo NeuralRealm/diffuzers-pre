@@ -70,16 +70,10 @@ class DiffusionMixture:
 
 
     def app(self):
-        available_schedulers = list(self.compatible_schedulers.keys())
-        if "EulerAncestralDiscreteScheduler" in available_schedulers:
-            available_schedulers.insert(
-                0, available_schedulers.pop(available_schedulers.index("EulerAncestralDiscreteScheduler"))
-            )
         # with st.form(key="text2img"):
         prompt = st.text_area("Prompt", example_prompt, help="Prompt to guide image generation")
         prompt = eval(str(prompt))
         # sidebar options
-        scheduler = st.sidebar.selectbox("Scheduler", available_schedulers, index=0, help="Scheduler(Sampler) to use for generation")
         image_height = st.sidebar.slider("Image height", 128, 1024, 512, 128, help="The height in pixels of the generated image.")
         image_width = st.sidebar.slider("Image width", 128, 1024, 512, 128, help="The width in pixels of the generated image.")
         guidance_scale = st.sidebar.slider("Guidance scale", 1.0, 40.0, 7.5, 0.5, help="Higher guidance scale encourages to generate images that are closely linked to the text `prompt`, usually at the expense of lower image quality.")
@@ -101,10 +95,6 @@ class DiffusionMixture:
             with st.spinner("Generating images..."):
                 output_images, metadata = self.generate_image(
                     prompt=prompt,
-                    scheduler=scheduler,
-                    image_size=(image_height, image_width),
-                    guidance_scale=guidance_scale,
-                    steps=steps,
                     seed=seed,
                 )
 
