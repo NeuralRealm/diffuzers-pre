@@ -13,7 +13,7 @@ protobuf==3.20
 pyngrok==5.2.1
 python-multipart==0.0.5
 realesrgan>=0.2.5
-streamlit==1.16.0
+streamlit
 streamlit-drawable-canvas==0.9.0
 st-clickable-images==0.0.3
 timm==0.4.12
@@ -27,3 +27,4 @@ xformers
 bitsandbytes
 safetensors
 controlnet_aux
+mixdiff>=1.1.2
