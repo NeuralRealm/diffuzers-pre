@@ -1,7 +1,7 @@
 import streamlit as st
 
 from stablefusion import utils
-from stablefusion.scripts.diffusion_mixture import DiffusionMixture
+from stablefusion.scripts.diffusion_mixture1 import DiffusionMixture
 from stablefusion.Home import read_model_list
 
 
