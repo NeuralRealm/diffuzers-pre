@@ -1,7 +1,7 @@
 import streamlit as st
 
 from stablefusion import utils
-from stablefusion.scripts.pose_editor import OpenPoseEditor
+from stablefusion.scripts.diffusion_mixture import DiffusionMixture
 from stablefusion.Home import read_model_list
 
 
@@ -16,7 +16,7 @@ def app():
     if submit:
         st.session_state.difusion_mixture = model
         with st.spinner("Loading model..."):
-            diffusion_mixture = OpenPoseEditor(
+            diffusion_mixture = DiffusionMixture(
                 model=model,
                 device=st.session_state.device,
                 output_path=st.session_state.output_path,

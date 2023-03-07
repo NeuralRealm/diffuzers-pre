@@ -53,8 +53,8 @@ class DiffusionMixture:
         num_images = int(num_images)
         output_images = self.pipeline(
             prompt,
-            width=image_size[1],
-            height=image_size[0],
+            tile_width = image_size[1],
+            tile_height=image_size[0],
             num_inference_steps=steps,
             guidance_scale=guidance_scale,
             num_images_per_prompt=num_images,
@@ -64,7 +64,6 @@ class DiffusionMixture:
         gc.collect()
         metadata = {
             "prompt": prompt,
-            "negative_prompt": negative_prompt,
             "scheduler": scheduler,
             "image_size": image_size,
             "num_images": num_images,
