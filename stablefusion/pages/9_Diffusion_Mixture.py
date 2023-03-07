@@ -22,7 +22,7 @@ def app():
             )
             st.session_state.diffusion_mixture = diffusion_mixture
     if "diffusion_mixture" in st.session_state:
-        st.write(f"Current model: {st.session_state.difusion_mixture}")
+        st.write(f"Current model: {st.session_state.diffusion_mixture}")
         st.session_state.diffusion_mixture.app()
 
 
