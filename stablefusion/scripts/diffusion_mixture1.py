@@ -39,7 +39,6 @@ class DiffusionMixture:
         self.pipeline = StableDiffusionTilingPipeline.from_pretrained(
             self.model,
             scheduler=scheduler,
-            torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
         )
         self.pipeline.to(self.device)
 
@@ -48,6 +47,8 @@ class DiffusionMixture:
             prompt=[prompt],
             seed=7178915308,
         )["sample"][0]
+        torch.cuda.empty_cache()
+        gc.collect()
         metadata = {
             "prompt": prompt,
             "seed": seed,
