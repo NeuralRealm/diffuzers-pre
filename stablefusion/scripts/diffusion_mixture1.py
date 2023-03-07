@@ -37,12 +37,6 @@ class DiffusionMixture:
             torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
         )
         self.pipeline.to(self.device)
-        
-        if self.device == "mps":
-            self.pipeline.enable_attention_slicing()
-            # warmup
-            prompt = "a photo of an astronaut riding a horse on mars"
-            _ = self.pipeline(prompt, num_inference_steps=2)
 
     def generate_image(self, prompt, seed):
         output_images = self.pipeline(
