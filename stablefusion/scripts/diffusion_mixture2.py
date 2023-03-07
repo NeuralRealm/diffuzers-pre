@@ -5,7 +5,7 @@ import streamlit as st
 
 # Mixture of Diffusers generation
 
-def app():
+def mixer_app():
     scheduler = LMSDiscreteScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", num_train_timesteps=1000)
     pipeline = StableDiffusionTilingPipeline.from_pretrained("runwayml/stable-diffusion-v1-5", scheduler=scheduler).to("cuda:0")
 

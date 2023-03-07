@@ -2,7 +2,7 @@ import streamlit as st
 
 from stablefusion import utils
 from stablefusion.scripts.diffusion_mixture1 import DiffusionMixture
-from stablefusion.scripts.diffusion_mixture2 import app
+from stablefusion.scripts.diffusion_mixture2 import mixer_app
 from stablefusion.Home import read_model_list
 
 
@@ -16,7 +16,7 @@ def app():
         submit = st.form_submit_button("Load model")
     if submit:
         with st.spinner("Loading model..."):
-            app()
+            mixer_app()
             """
             diffusion_mixture = DiffusionMixture(
                 model=model,
