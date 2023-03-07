@@ -27,3 +27,7 @@ xformers
 bitsandbytes
 safetensors
 controlnet_aux
+gitpython==3.1.*
+ftfy==6.1.*
+ligo-segments==1.4.*
+scipy==1.10.*
