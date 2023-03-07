@@ -62,7 +62,7 @@ class DiffusionMixture:
         output_images = self.pipeline(
             [prompt],
             seed=7178915308,
-        ).images
+        )["sample"][0]
         torch.cuda.empty_cache()
         gc.collect()
         metadata = {
@@ -94,7 +94,7 @@ class DiffusionMixture:
                 0, available_schedulers.pop(available_schedulers.index("EulerAncestralDiscreteScheduler"))
             )
         # with st.form(key="text2img"):
-        prompt = st.text_area("Prompt", example_prompt, help="Prompt to guide image generation")
+        prompt = st.text_area("Prompt", value=example_prompt, help="Prompt to guide image generation")
         prompt = eval(str(prompt))
         st.text(prompt)
         # sidebar options
