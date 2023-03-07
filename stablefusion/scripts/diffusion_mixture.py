@@ -59,7 +59,7 @@ class DiffusionMixture:
             generator = torch.Generator(device=self.device).manual_seed(seed)
         output_images = self.pipeline(
             [prompt],
-            seed=seed,
+            seed=7178915308,
         ).images
         torch.cuda.empty_cache()
         gc.collect()
