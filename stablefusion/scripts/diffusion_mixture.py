@@ -59,15 +59,6 @@ class DiffusionMixture:
             generator = torch.Generator(device=self.device).manual_seed(seed)
         output_images = self.pipeline(
             [prompt],
-            tile_width = image_size[1],
-            tile_height=image_size[0],
-            num_inference_steps=steps,
-            guidance_scale=guidance_scale,
-            tile_row_overlap=0,
-            tile_col_overlap=256,
-            guidance_scale=guidance_scale,
-            seed=seed,
-            num_inference_steps=steps,
         ).images
         torch.cuda.empty_cache()
         gc.collect()
