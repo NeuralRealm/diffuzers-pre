@@ -30,13 +30,13 @@ class DiffusionMixture:
     
 
     def __post_init__(self):
-        scheduler = LMSDiscreteScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", num_train_timesteps=1000).to("cuda:0")
+        scheduler = LMSDiscreteScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", num_train_timesteps=1000)
         self.pipeline = StableDiffusionTilingPipeline.from_pretrained(
             self.model,
             scheduler=scheduler,
             torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
         )
-        #self.pipeline.to(self.device)
+        self.pipeline.to("cuda:0")
 
     def generate_image(self, prompt, seed):
         output_images = self.pipeline(
