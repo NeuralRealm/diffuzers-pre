@@ -40,7 +40,7 @@ class DiffusionMixture:
             self.model,
             scheduler=self.scheduler,
         )
-        self.pipeline.to(self.device)
+        self.pipeline.to("cuda:0")
 
     def generate_image(self, prompt, seed):
         output_images = self.pipeline(
