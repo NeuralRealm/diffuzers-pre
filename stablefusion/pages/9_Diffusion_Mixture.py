@@ -20,7 +20,7 @@ def app():
                 device=st.session_state.device,
                 output_path=st.session_state.output_path,
             )
-            st.session_state.difusion_mixture = diffusion_mixture
+            st.session_state.diffusion_mixture = diffusion_mixture
     if "diffusion_mixture" in st.session_state:
         st.write(f"Current model: {st.session_state.difusion_mixture}")
         st.session_state.diffusion_mixture.app()
