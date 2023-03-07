@@ -48,7 +48,7 @@ class DiffusionMixture:
             seed=7178915308,
         )["sample"][0]
         torch.cuda.empty_cache()
-        gc.collect()
+       # gc.collect()
         metadata = {
             "prompt": prompt,
             "seed": seed,

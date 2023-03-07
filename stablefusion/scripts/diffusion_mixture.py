@@ -33,7 +33,6 @@ class DiffusionMixture:
         self.pipeline = StableDiffusionTilingPipeline.from_pretrained(
             self.model,
             scheduler=scheduler,
-            torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
         )
         self.pipeline.to(self.device)
         self.pipeline.safety_checker = utils.no_safety_checker
