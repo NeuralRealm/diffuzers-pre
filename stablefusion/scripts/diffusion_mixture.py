@@ -49,7 +49,7 @@ class DiffusionMixture:
         scheduler = self.compatible_schedulers[scheduler_name].from_config(self.scheduler_config)
         self.pipeline.scheduler = scheduler
 
-    def generate_image(self, prompt, scheduler, image_size, num_images, guidance_scale, steps, seed):
+    def generate_image(self, prompt, scheduler, image_size, guidance_scale, steps, seed):
         self._set_scheduler(scheduler)
         logger.info(self.pipeline.scheduler)
         if self.device == "mps":
@@ -57,14 +57,12 @@ class DiffusionMixture:
             num_images = 1
         else:
             generator = torch.Generator(device=self.device).manual_seed(seed)
-        num_images = int(num_images)
         output_images = self.pipeline(
             [prompt],
             tile_width = image_size[1],
             tile_height=image_size[0],
             num_inference_steps=steps,
             guidance_scale=guidance_scale,
-            num_images_per_prompt=num_images,
             generator=generator,
         ).images
         torch.cuda.empty_cache()
@@ -125,7 +123,6 @@ class DiffusionMixture:
                     prompt=prompt,
                     scheduler=scheduler,
                     image_size=(image_height, image_width),
-                    num_images=num_images,
                     guidance_scale=guidance_scale,
                     steps=steps,
                     seed=seed,
