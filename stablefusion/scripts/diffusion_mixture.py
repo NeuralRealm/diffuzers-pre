@@ -19,7 +19,7 @@ class DiffusionMixture:
     output_path: Optional[str] = None
 
     def __str__(self) -> str:
-        return f"Text2Image(model={self.model}, device={self.device}, output_path={self.output_path})"
+        return f"DiffusionMixture(model={self.model}, device={self.device}, output_path={self.output_path})"
 
     def __post_init__(self):
         self.pipeline = StableDiffusionTilingPipeline.from_pretrained(

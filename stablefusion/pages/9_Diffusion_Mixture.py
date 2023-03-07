@@ -7,14 +7,13 @@ from stablefusion.Home import read_model_list
 
 def app():
     utils.create_base_page()
-    with st.form("openpose_editor_form"):
+    with st.form("diffusion_mixture_form"):
         model = st.selectbox(
-            "Which model do you want to use for OpenPose?",
+            "Which model do you want to use for Diffusion Mixture?",
             options=read_model_list()
         )
         submit = st.form_submit_button("Load model")
     if submit:
-        st.session_state.difusion_mixture = model
         with st.spinner("Loading model..."):
             diffusion_mixture = DiffusionMixture(
                 model=model,
