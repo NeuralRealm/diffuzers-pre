@@ -48,11 +48,9 @@ class VideoToVideo:
         
         image_dir = "{}/data/output/video_animations/images".format(utils.base_path())
         video_path = "{}/data/output/video_animations/uploaded_videos/uploaded_video.mp4".format(utils.base_path())
+        
+        
         video = cv2.VideoCapture(video_path)
-
-
-        video_np = np.frombuffer(video, np.uint8)
-        video = cv2.imdecode(video_np, cv2.IMREAD_UNCHANGED)
 
         fps = video.get(cv2.CAP_PROP_FPS)
         frame_count = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
