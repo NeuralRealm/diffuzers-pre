@@ -44,20 +44,23 @@ class VideoToVideo:
         scheduler = self.compatible_schedulers[scheduler_name].from_config(self.scheduler_config)
         self.pipeline.scheduler = scheduler
     
-    def extract_video_to_image(self, video_input):
+    def extract_video_to_image(self):
         
         image_dir = "{}/data/output/video_animations/images".format(utils.base_path())
+        video_path = "{}/data/output/video_animations/output_images/uploaded_videos/uploaded_video.mp4".format(utils.base_path())
+        video = cv2.VideoCapture(video_path)
 
-        video_np = np.frombuffer(video_input, np.uint8)
-        video_input = cv2.imdecode(video_np, cv2.IMREAD_UNCHANGED)
 
-        fps = video_input.get(cv2.CAP_PROP_FPS)
-        frame_count = int(video_input.get(cv2.CAP_PROP_FRAME_COUNT))
+        video_np = np.frombuffer(video, np.uint8)
+        video = cv2.imdecode(video_np, cv2.IMREAD_UNCHANGED)
+
+        fps = video.get(cv2.CAP_PROP_FPS)
+        frame_count = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
 
         # Loop through the frames and save them as images
         for i in range(frame_count):
             # Get the frame at the current position
-            success, frame = video_input.read()
+            success, frame = video.read()
             if not success:
                 break
             
@@ -65,10 +68,10 @@ class VideoToVideo:
             cv2.imwrite(f"{image_dir}/images_{i}.jpg", frame)
             
             # Move to the next frame
-            video_input.set(cv2.CAP_PROP_POS_FRAMES, (i+1))
+            video.set(cv2.CAP_PROP_POS_FRAMES, (i+1))
 
         # Release the video object
-        video_input.release()
+        video.release()
 
         return fps
 
@@ -149,7 +152,10 @@ class VideoToVideo:
         if video_upload is not None:
 
             video_bytes = video_upload.read()
-            #video_cv2 = cv2.imdecode(np.frombuffer(video_bytes, np.uint8), cv2.IMREAD_UNCHANGED)
+
+            with open("{}/data/output/video_animations/output_images/uploaded_videos/uploaded_video.mp4".format(utils.base_path()), "wb") as f:
+                f.write(video_bytes)
+                
             st.video(video_bytes, format='video/mp4')
 
 
