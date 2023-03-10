@@ -101,8 +101,6 @@ class VideoToVideo:
             prompt=prompt,
             negative_prompt=negative_prompt,
             image=image,
-            width=image_size[1],
-            height=image_size[0],
             num_inference_steps=steps,
             guidance_scale=guidance_scale,
             num_images_per_prompt=1,
