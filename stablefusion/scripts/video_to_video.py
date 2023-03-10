@@ -74,7 +74,7 @@ class VideoToVideo:
         return fps
 
 
-    def generate_ai_images(self, image, prompt, negative_prompt, scheduler, image_size, guidance_scale, steps, seed):
+    def generate_ai_images(self,prompt, negative_prompt, scheduler, image_size, guidance_scale, steps, seed):
         
         image_dir = "{}/data/output/video_animations/images".format(utils.base_path())
         output_image_dir = "{}/data/output/video_animations/output_images/".format(utils.base_path())
