@@ -185,7 +185,7 @@ class VideoToVideo:
         if submit:
             with st.spinner("Generating Video..."):
                 
-                fps = self.extract_video_to_image(video_input=video_bytes)
+                fps = self.extract_video_to_image()
 
                 width, height = self.generate_ai_images(
                     prompt=prompt,
