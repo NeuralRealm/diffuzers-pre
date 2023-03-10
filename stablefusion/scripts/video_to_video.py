@@ -113,7 +113,7 @@ class VideoToVideo:
         return image_size[1], image_size[0]
     
 
-    def images_to_video(fps, width, hight):
+    def images_to_video(self, fps, width, hight):
 
         # Set the path to the directory containing the image files
         image_dir = "{}/data/output/video_animations/output_images/".format(utils.base_path())
@@ -193,4 +193,4 @@ class VideoToVideo:
                     seed=seed,
                 )
 
-                self.images_to_video(width=width, hight=height, fps=fps)
+                self.images_to_video(fps=fps, width=width, hight=height)
