@@ -8,7 +8,7 @@ from typing import Optional
 from stablefusion import utils
 import streamlit as st
 import torch
-from diffusers import DiffusionPipeline
+from diffusers import DiffusionPipeline, StableDiffusionImg2ImgPipeline
 from loguru import logger
 from PIL.PngImagePlugin import PngInfo
 import numpy as np
@@ -24,7 +24,7 @@ class VideoToVideo:
         return f"Text2Image(model={self.model}, device={self.device}, output_path={self.output_path})"
     
     def __post_init__(self):
-        self.pipeline = DiffusionPipeline.from_pretrained(
+        self.pipeline = StableDiffusionImg2ImgPipeline.from_pretrained(
             self.model,
             torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
         )
@@ -45,7 +45,9 @@ class VideoToVideo:
         self.pipeline.scheduler = scheduler
     
     def extract_video_to_image(self, video_input):
-            
+        
+        image_dir = "{}/data/output/video_animations/images".format(utils.base_path())
+
         video = cv2.imdecode(np.frombuffer(video_input, np.uint8), cv2.IMREAD_UNCHANGED)
         fps = video.get(cv2.CAP_PROP_FPS)
         frame_count = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -58,7 +60,7 @@ class VideoToVideo:
                 break
             
             # Save the frame as an image
-            cv2.imwrite(f"testing_folder/images/images_{i}.jpg", frame)
+            cv2.imwrite(f"{image_dir}/images_{i}.jpg", frame)
             
             # Move to the next frame
             video.set(cv2.CAP_PROP_POS_FRAMES, (i+1))
@@ -90,10 +92,12 @@ class VideoToVideo:
             image = cv2.imread(image_path)
             resized_image = cv2.resize(image, (512, 512))
             rgb_image = cv2.cvtColor(resized_image, cv2.COLOR_BGR2RGB)
-            image = Image.fromarray(image)
+            image = Image.fromarray(rgb_image)
+
             output_image = self.pipeline(
-            prompt,
+            prompt=prompt,
             negative_prompt=negative_prompt,
+            image=image,
             width=image_size[1],
             height=image_size[0],
             num_inference_steps=steps,
@@ -139,6 +143,14 @@ class VideoToVideo:
                 0, available_schedulers.pop(available_schedulers.index("EulerAncestralDiscreteScheduler"))
             )
         # with st.form(key="text2img"):
+        video_upload = st.file_uploader(label="Upload your video: ", type=["mp4"])
+        if video_upload is not None:
+
+            video_bytes = video_upload.read()
+            video_cv2 = cv2.imdecode(np.frombuffer(video_bytes, np.uint8), cv2.IMREAD_UNCHANGED)
+            st.video(video_cv2)
+
+
         col1, col2 = st.columns(2)
         with col1:
             prompt = st.text_area("Prompt", "Blue elephant", help="Prompt to guide image generation")
@@ -163,8 +175,11 @@ class VideoToVideo:
             submit = st.button("Generate")
 
         if submit:
-            with st.spinner("Generating images..."):
-                output_images, metadata = self.generate_image(
+            with st.spinner("Generating Video..."):
+                
+                fps = self.extract_video_to_image(video_input=video_cv2)
+
+                width, height = self.generate_ai_images(
                     prompt=prompt,
                     negative_prompt=negative_prompt,
                     scheduler=scheduler,
@@ -173,3 +188,5 @@ class VideoToVideo:
                     steps=steps,
                     seed=seed,
                 )
+
+                self.images_to_video(width=width, hight=height, fps=fps)
