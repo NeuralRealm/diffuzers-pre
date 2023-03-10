@@ -146,8 +146,8 @@ class VideoToVideo:
         if video_upload is not None:
 
             video_bytes = video_upload.read()
-            video_cv2 = cv2.imdecode(np.frombuffer(video_bytes, np.uint8), cv2.IMREAD_UNCHANGED)
-            st.video(video_cv2, format='video/mp4', start_time=0)
+            #video_cv2 = cv2.imdecode(np.frombuffer(video_bytes, np.uint8), cv2.IMREAD_UNCHANGED)
+            st.video(video_bytes, format='video/mp4')
 
 
         col1, col2 = st.columns(2)
