@@ -48,14 +48,13 @@ class VideoToVideo:
         
         image_dir = "{}/data/output/video_animations/images".format(utils.base_path())
 
-        video = cv2.imdecode(np.frombuffer(video_input, np.uint8), cv2.IMREAD_UNCHANGED)
-        fps = video.get(cv2.CAP_PROP_FPS)
-        frame_count = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+        fps = video_input.get(cv2.CAP_PROP_FPS)
+        frame_count = int(video_input.get(cv2.CAP_PROP_FRAME_COUNT))
 
         # Loop through the frames and save them as images
         for i in range(frame_count):
             # Get the frame at the current position
-            success, frame = video.read()
+            success, frame = video_input.read()
             if not success:
                 break
             
@@ -63,10 +62,10 @@ class VideoToVideo:
             cv2.imwrite(f"{image_dir}/images_{i}.jpg", frame)
             
             # Move to the next frame
-            video.set(cv2.CAP_PROP_POS_FRAMES, (i+1))
+            video_input.set(cv2.CAP_PROP_POS_FRAMES, (i+1))
 
         # Release the video object
-        video.release()
+        video_input.release()
 
         return fps
 
