@@ -47,7 +47,7 @@ class VideoToVideo:
     def extract_video_to_image(self):
         
         image_dir = "{}/data/output/video_animations/images".format(utils.base_path())
-        video_path = "{}/data/output/video_animations/output_images/uploaded_videos/uploaded_video.mp4".format(utils.base_path())
+        video_path = "{}/data/output/video_animations/uploaded_videos/uploaded_video.mp4".format(utils.base_path())
         video = cv2.VideoCapture(video_path)
 
 
@@ -153,7 +153,7 @@ class VideoToVideo:
 
             video_bytes = video_upload.read()
 
-            with open("{}/data/output/video_animations/output_images/uploaded_videos/uploaded_video.mp4".format(utils.base_path()), "wb") as f:
+            with open("{}/data/output/video_animations/uploaded_videos/uploaded_video.mp4".format(utils.base_path()), "wb") as f:
                 f.write(video_bytes)
                 
             st.video(video_bytes, format='video/mp4')
