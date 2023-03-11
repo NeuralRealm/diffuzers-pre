@@ -74,7 +74,7 @@ class VideoToVideo:
         return fps
 
 
-    def generate_ai_images(self,prompt, negative_prompt, scheduler, image_size, guidance_scale, steps, seed):
+    def generate_ai_images(self,prompt, strength, negative_prompt, scheduler, image_size, guidance_scale, steps, seed):
         
         image_dir = "{}/data/output/video_animations/images".format(utils.base_path())
         output_image_dir = "{}/data/output/video_animations/output_images/".format(utils.base_path())
@@ -103,6 +103,7 @@ class VideoToVideo:
             image=image,
             num_inference_steps=steps,
             guidance_scale=guidance_scale,
+            strength=strength,
             num_images_per_prompt=1,
             generator=generator,
             ).images[0]
@@ -126,7 +127,7 @@ class VideoToVideo:
 
         # Define the codec and create a VideoWriter object
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        out = cv2.VideoWriter('output.mp4', fourcc, fps, (width, hight))
+        out = cv2.VideoWriter('{}/data/output/video_animations/video_output/output.mp4'.format(utils.base_path()), fourcc, fps, (width, hight))
 
         # Iterate over each image file and write it to the video file
         for image_file in image_files_sorted:
@@ -153,6 +154,7 @@ class VideoToVideo:
                 f.write(video_bytes)
                 
             st.video(video_bytes, format='video/mp4')
+            st.download_button(label="Download video", data="{}/data/output/video_animations/uploaded_videos/uploaded_video.mp4".format(utils.base_path()), file_name="video.mp4")
 
 
         col1, col2 = st.columns(2)
@@ -165,6 +167,7 @@ class VideoToVideo:
         image_height = st.sidebar.slider("Image height", 128, 1024, 512, 128, help="The height in pixels of the generated image.")
         image_width = st.sidebar.slider("Image width", 128, 1024, 512, 128, help="The width in pixels of the generated image.")
         guidance_scale = st.sidebar.slider("Guidance scale", 1.0, 40.0, 7.5, 0.5, help="Higher guidance scale encourages to generate images that are closely linked to the text `prompt`, usually at the expense of lower image quality.")
+        strength = st.sidebar.slider("Denoise Strength", 0.0, 1.0, 0.5, 0.05)
         steps = st.sidebar.slider("Steps", 1, 150, 50, 1, help="The number of denoising steps. More denoising steps usually lead to a higher quality image at the expense of slower inference.")
 
         seed_placeholder = st.sidebar.empty()
@@ -189,6 +192,7 @@ class VideoToVideo:
                     scheduler=scheduler,
                     image_size=(image_height, image_width),
                     guidance_scale=guidance_scale,
+                    strength=strength,
                     steps=steps,
                     seed=seed,
                 )
