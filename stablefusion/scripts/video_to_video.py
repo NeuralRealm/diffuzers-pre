@@ -194,3 +194,7 @@ class VideoToVideo:
                 )
 
                 self.images_to_video(fps=fps, width=width, hight=height)
+
+                video_file = open('{}/data/output/video_animations/uploaded_videos/uploaded_video.mp4'.format(utils.base_path()), 'rb')
+                video_bytes = video_file.read()
+                st.video(video_bytes)
