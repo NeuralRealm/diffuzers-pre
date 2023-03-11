@@ -160,7 +160,6 @@ class VideoToVideo:
                 f.write(video_bytes)
                 
             st.video(video_bytes, format='video/mp4')
-            st.download_button(label="Download video", data=video_bytes, file_name="video.mp4")
 
 
         col1, col2 = st.columns(2)
