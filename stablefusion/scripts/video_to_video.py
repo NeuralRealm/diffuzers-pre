@@ -14,6 +14,12 @@ from PIL.PngImagePlugin import PngInfo
 import numpy as np
 from PIL import Image
 
+
+def video_to_bytes(video_file):
+    with open(video_file, 'rb') as file:
+        video_bytes = file.read()
+    return video_bytes
+
 @dataclass
 class VideoToVideo:
     device: Optional[str] = None
@@ -199,6 +205,9 @@ class VideoToVideo:
 
                 self.images_to_video(fps=fps, width=width, hight=height)
 
-                video_file = open('{}/data/output/video_animations/uploaded_videos/uploaded_video.mp4'.format(utils.base_path()), 'rb')
+                video_file = open('{}/data/output/video_animations/video_output/output.mp4'.format(utils.base_path()), 'rb')
                 video_bytes = video_file.read()
                 st.video(video_bytes)
+
+                st.download_button(label="Download video", data=video_bytes, file_name="video.mp4")
+                
